@@ -8,8 +8,8 @@ package ca.bcit.comp2522.termproject.catnapped;
 public class Player extends Entity{
 
     private final String imageURL = "imageURLGoesHere";
-    public Player(float newXCoordinate, float newYCoordinate) {
-        super(newXCoordinate, newYCoordinate);
+    public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
+        super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
     }
 
     public void updatePosition() {
