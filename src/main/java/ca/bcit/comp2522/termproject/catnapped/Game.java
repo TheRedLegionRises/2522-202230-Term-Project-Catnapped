@@ -7,5 +7,7 @@ public class Game {
         System.out.println("Game class works!");
         gamePanel = new GamePanel();
         gameWindow = new GameWindow(gamePanel);
+        gamePanel.requestFocus();
+
     }
 }
