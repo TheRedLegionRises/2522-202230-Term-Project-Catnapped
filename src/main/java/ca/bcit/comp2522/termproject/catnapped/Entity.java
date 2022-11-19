@@ -1,5 +1,10 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
+/**
+ * Abstract Class Entity.
+ * @author jerry
+ * @version 2022
+ */
 public abstract class Entity {
     private final float x, y;
 
