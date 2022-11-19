@@ -1,4 +1,5 @@
 module ca.bcit.comp2522.termproject.catnapped {
+
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -8,8 +9,10 @@ module ca.bcit.comp2522.termproject.catnapped {
 //    requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+//    requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
+//    requires java.desktop;
 
     opens ca.bcit.comp2522.termproject.catnapped to javafx.fxml;
     exports ca.bcit.comp2522.termproject.catnapped;
