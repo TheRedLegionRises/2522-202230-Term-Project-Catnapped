@@ -30,15 +30,15 @@ public class GamePanel extends JPanel {
 
     private void loadAnimations() {
 
-        idleAnimation = new BufferedImage[6];
+        idleAnimation = new BufferedImage[6]; // If 5 - get an error - care
 
         for(int i = 0; i < idleAnimation.length; i++)
-            idleAnimation[i] = img.getSubimage(0 , i*16, 32 , 16);
+            idleAnimation[i] = img.getSubimage(0 , i*16, 32 , 16); // Cat is 16 pixels tall and 32 pixels fat
 
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png");
+        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
 
         try {img = ImageIO.read(is);
         } catch (IOException e) {
@@ -55,8 +55,8 @@ public class GamePanel extends JPanel {
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(1280, 800);
-        setPreferredSize(size);
+        Dimension size = new Dimension(1280, 800); // Good arcade game size
+        setPreferredSize(size); // jFrame.pack() can find this
 
     }
 
@@ -65,7 +65,7 @@ public class GamePanel extends JPanel {
 
         updateAnimationThread();
         
-//        subImg = img.getSubimage(0 , 0*16, 32 , 16);
+//        subImg = img.getSubimage(0 , 0*16, 32 , 16);  To get images within an image
         g.drawImage(idleAnimation[animationIndex],0 , 0, 160, 80,null);
 
     }
