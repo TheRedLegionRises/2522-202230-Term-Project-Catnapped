@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.IDLE;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.*;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.*;
 
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
@@ -17,6 +18,9 @@ public class GamePanel extends JPanel {
             jumpAnimation, attackAnimation, takeDamageAnimation;
     private int animationTick, animationIndex, animationSpeed = 15;
     private int playerAction = IDLE;
+    private int playerDir = -1;
+    private boolean moving = false;
+    private float xDelta = 100, yDelta = 100;
 
 
     
@@ -75,10 +79,22 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         updateAnimationThread();
+        setAnimation();
+        updatePos();
         
 //        subImg = img.getSubimage(0 , 0*16, 32 , 16);  To get images within an image
-        g.drawImage(idleAnimation[animationIndex],0 , 0, 160, 80,null);
+        g.drawImage(idleAnimation[animationIndex],0 , 0, 320, 160,null);
 
+    }
+
+
+    public void setDirection(int direction) {
+        this.playerDir = direction;
+        moving = true;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 
     private void updateAnimationThread() {
@@ -87,9 +103,35 @@ public class GamePanel extends JPanel {
         if(animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if(animationIndex >= idleAnimation.length)
+            if(animationIndex >= GetPlayerAttribute(playerAction))
                 animationIndex = 0;
         }
 
+    }
+
+    private void setAnimation() {
+        if (moving)
+            playerAction = RUNNING;
+        else
+            playerAction = IDLE;
+    }
+
+    private void updatePos() {
+        if (moving) {
+            switch (playerDir) {
+                case LEFT:
+                    xDelta -= 5;
+                    break;
+                case UP:
+                    yDelta -= 5;
+                    break;
+                case RIGHT:
+                    xDelta += 5;
+                    break;
+                case DOWN:
+                    yDelta += 5;
+                    break;
+            }
+        }
     }
 }
