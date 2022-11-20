@@ -4,8 +4,8 @@ public class Constants {
 
     public static class PlayerAttributes {
 
-        public static final int IDLE = 0;
-        public static final int RUNNING = 1;
+        public static final int IDLE = 1;
+        public static final int RUNNING = 0;
         public static final int JUMPING = 2;
         public static final int TAKE_DAMAGE = 3;
         public static final int ATTACK = 4;
@@ -33,5 +33,12 @@ public class Constants {
             }
 
         }
+    }
+
+    public static class Directions {
+        public static final int LEFT = 0;
+        public static final int UP = 1;
+        public static final int RIGHT = 2;
+        public static final int DOWN = 3;
     }
 }
