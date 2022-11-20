@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.*;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.DOWN;
+
 /**
  * Player Class.
  * @author jerry
@@ -17,6 +20,10 @@ public class Player extends Actor{
     private BufferedImage[] idleAnimation;
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
+    private int playerDir = -1;
+    private boolean moving = false;
+    private float xCoordinate = 100, yCoordinate = 100;
+
     public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
         super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
         loadPlayerAnimations();
@@ -45,12 +52,13 @@ public class Player extends Actor{
     }
 
     public void updatePosition() {
+        updatePos();
         updateAnimationThread();
 
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(idleAnimation[animationIndex],0 , 0, 160, 80,null);
+        g.drawImage(idleAnimation[animationIndex],(int) xCoordinate , (int) yCoordinate, 160, 80,null);
 
     }
 
@@ -65,7 +73,32 @@ public class Player extends Actor{
 
     }
 
-    public String getImageLocation() {
-        return this.imageURL;
+    private void updatePos() {
+        if (moving) {
+            switch (playerDir) {
+                case LEFT:
+                    xCoordinate -= 5;
+                    break;
+                case UP:
+                    yCoordinate -= 5;
+                    break;
+                case RIGHT:
+                    xCoordinate += 5;
+                    break;
+                case DOWN:
+                    yCoordinate += 5;
+                    break;
+            }
+        }
     }
+
+    public void setDirection(int direction) {
+        this.playerDir = direction;
+        moving = true;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
 }
