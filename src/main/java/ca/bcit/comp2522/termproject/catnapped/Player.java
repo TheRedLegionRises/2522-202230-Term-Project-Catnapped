@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.*;
-import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.DOWN;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.*;
 
 /**
  * Player Class.
@@ -17,12 +17,14 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.DOWN;
 public class Player extends Actor{
 
     private final String imageURL = "imageURLGoesHere";
-    private BufferedImage[] idleAnimation;
+    private BufferedImage[] idleAnimation, runningAnimation;
+    private BufferedImage[][] allAnimations;
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
     private int playerDir = -1;
     private boolean moving = false;
     private float xCoordinate = 100, yCoordinate = 100;
+    private int currentPlayerAction = IDLE;
 
     public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
         super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
@@ -32,12 +34,27 @@ public class Player extends Actor{
     private void loadPlayerAnimations() {
         InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
 
+        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
+        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
+        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
+        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
+
         try {img = ImageIO.read(is);
 
             idleAnimation = new BufferedImage[6]; // If 5 - get an error - care
+            runningAnimation = new BufferedImage[8];
 
-            for(int i = 0; i < idleAnimation.length; i++)
-                idleAnimation[i] = img.getSubimage(0 , i*16, 32 , 16); // Cat is 16 pixels tall and 32 pixels fat
+            for(int i = 0; i < idleAnimation.length; i++) {
+                idleAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
+            }
+
+            for(int j = 0; j < runningAnimation.length; j++) {
+                runningAnimation[j] = img.getSubimage(0, j * 16, 32, 16);
+            }
+
+            allAnimations = new BufferedImage[2][];
+            allAnimations[0] = idleAnimation;
+            allAnimations[1] = runningAnimation;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +75,7 @@ public class Player extends Actor{
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(idleAnimation[animationIndex],(int) xCoordinate , (int) yCoordinate, 160, 80,null);
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex],(int) xCoordinate , (int) yCoordinate, 160, 80,null);
 
     }
 
@@ -77,16 +94,16 @@ public class Player extends Actor{
         if (moving) {
             switch (playerDir) {
                 case LEFT:
-                    xCoordinate -= 5;
+                    xCoordinate -= 1;
                     break;
                 case UP:
-                    yCoordinate -= 5;
+                    yCoordinate -= 1;
                     break;
                 case RIGHT:
-                    xCoordinate += 5;
+                    xCoordinate += 1;
                     break;
                 case DOWN:
-                    yCoordinate += 5;
+                    yCoordinate += 1;
                     break;
             }
         }
