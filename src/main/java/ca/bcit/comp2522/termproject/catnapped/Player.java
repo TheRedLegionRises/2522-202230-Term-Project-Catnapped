@@ -5,7 +5,7 @@ package ca.bcit.comp2522.termproject.catnapped;
  * @author jerry
  * @version 2022
  */
-public class Player extends Entity{
+public class Player extends Actor{
 
     private final String imageURL = "imageURLGoesHere";
     public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {

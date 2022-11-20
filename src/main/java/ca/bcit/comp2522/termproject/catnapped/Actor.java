@@ -5,12 +5,12 @@ package ca.bcit.comp2522.termproject.catnapped;
  * @author jerry
  * @version 2022
  */
-public abstract class Entity {
+public abstract class Actor {
     private final float x, y;
     private final int currentHealth, maxHealth, height, width;
 
 
-    public Entity (float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
+    public Actor (float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
         this.x = newXCoordinate;
         this.y = newYCoordinate;
         this.maxHealth = newMaxHealth;
