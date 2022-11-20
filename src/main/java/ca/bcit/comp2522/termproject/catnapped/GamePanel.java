@@ -60,10 +60,17 @@ public class GamePanel extends JPanel {
 
     }
 
+    //Added method for revised Loop
+    public void updateGame() {
+        updateAnimationThread();
+
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        updateAnimationThread();
+//        Moved to method updateGame
+//        updateAnimationThread();
         
 //        subImg = img.getSubimage(0 , 0*16, 32 , 16);  To get images within an image
         g.drawImage(idleAnimation[animationIndex],0 , 0, 160, 80,null);
