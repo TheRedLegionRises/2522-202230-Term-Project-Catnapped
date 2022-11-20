@@ -1,9 +1,8 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
 public class Enemy extends Actor{
-    private static final int maxHealth = 10;
 
-    public Enemy() {
-        super(maxHealth);
+    public Enemy(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
+        super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
     }
 }
