@@ -22,7 +22,7 @@ public class Player extends Actor{
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
     private int playerDir = -1;
-    private boolean moving = false;
+    private boolean moving, moveLeft, moveRight, moveUp, moveDown = false;
     private float xCoordinate = 100, yCoordinate = 100;
     private int currentPlayerAction = IDLE;
 
@@ -83,31 +83,33 @@ public class Player extends Actor{
     }
 
     private void updatePos() {
-        if (moving) {
-            switch (playerDir) {
-                case LEFT:
-                    xCoordinate -= 5;
-                    break;
-                case UP:
-                    yCoordinate -= 5;
-                    break;
-                case RIGHT:
-                    xCoordinate += 5;
-                    break;
-                case DOWN:
-                    yCoordinate += 5;
-                    break;
-            }
+
+        if (!moveLeft && moveRight) {
+            xCoordinate += 5;
+        } else if (moveLeft && !moveRight) {
+            xCoordinate -= 5;
+        }
+
+        if (moveUp && !moveDown) {
+            yCoordinate -= 5;
+        } else if (!moveUp && moveDown) {
+            yCoordinate += 5;
         }
     }
 
-    public void setDirection(int direction) {
-        this.playerDir = direction;
-        moving = true;
+    public void setMoveLeft(boolean moveLeft) {
+        this.moveLeft = moveLeft;
     }
 
-    public void setMoving(boolean moving) {
-        this.moving = moving;
+    public void setMoveRight(boolean moveRight) {
+        this.moveRight = moveRight;
     }
 
+    public void setMoveUp(boolean moveUp) {
+        this.moveUp = moveUp;
+    }
+
+    public void setMoveDown(boolean moveDown) {
+        this.moveDown = moveDown;
+    }
 }
