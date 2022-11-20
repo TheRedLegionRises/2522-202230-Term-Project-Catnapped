@@ -11,9 +11,6 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.
 
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
-    private int playerAction = IDLE;
-    private int playerDir = -1;
-    private boolean moving = false;
 
     private Game game;
     public GamePanel(Game game) {
@@ -39,12 +36,7 @@ public class GamePanel extends JPanel {
         game.render(g);
     }
 
-    public void setDirection(int direction) {
-        this.playerDir = direction;
-        moving = true;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
+    public Game getGame() {
+        return game;
     }
 }
