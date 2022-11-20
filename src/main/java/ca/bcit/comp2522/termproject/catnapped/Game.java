@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
+import java.awt.*;
+
 public class Game implements Runnable {
 
     private GameWindow gameWindow;
@@ -7,11 +9,12 @@ public class Game implements Runnable {
     private Thread gameThread;
     private final int MAX_FPS = 120;
     private final int UPS_SET = 200;
+    private Player player = new Player(0, 0, 0, 0, 0);
 
     public Game() {
 
         System.out.println("Game class works!");
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameLoop();
@@ -24,29 +27,30 @@ public class Game implements Runnable {
 
     //New Method for Revised Loop
     public void update() {
-        gamePanel.updateGame();
+        player.updatePosition();
+    }
+
+    public void render(Graphics g) {
+        player.renderPlayer(g);
+
     }
 
     @Override
     public void run() {
 
         double timePerFrame = 1000000000.0 / MAX_FPS;
-        double timePerUpdate = 1000000000.0 / UPS_SET; //Revised Game Loop
+        double timePerUpdate = 1000000000.0 / UPS_SET;
         int frames = 0;
-//        long lastFrame = System.nanoTime();
-//        long now = System.nanoTime();
+
         long lastCheck = System.currentTimeMillis();
 
-        //Revised Game Loop additions
         long previousTime = System.nanoTime();
         int updates = 0;
         double deltaU = 0;
         double deltaF = 0;
 
         while (true) {
-//            now = System.nanoTime();
 
-            //Start of Changed stuff
             long currentTime = System.nanoTime();
 
             deltaU += (currentTime - previousTime) / timePerUpdate;
@@ -65,14 +69,7 @@ public class Game implements Runnable {
                 frames++;
                 deltaF--;
             }
-            //End of changed stuff
 
-            //Remove from revised loop
-//            if (now - lastFrame >= timePerFrame) {
-//                gamePanel.repaint();
-//                lastFrame = now;
-//                frames++;
-//            }
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
                 System.out.println("FPS: " + frames + "| UPS: " + updates); //Changed
