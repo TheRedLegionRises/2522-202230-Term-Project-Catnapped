@@ -7,13 +7,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.IDLE;
+
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
 
     private BufferedImage img, subImg;
-    private BufferedImage[] idleAnimation, runAnimation, deathAnimation
-            ,jumpAnimation, attackAnimation, takeDamageAnimation;
+    private BufferedImage[] idleAnimation, runAnimation, deathAnimation,
+            jumpAnimation, attackAnimation, takeDamageAnimation;
     private int animationTick, animationIndex, animationSpeed = 15;
+    private int playerAction = IDLE;
+
+
     
     public GamePanel() {
 
@@ -38,7 +43,13 @@ public class GamePanel extends JPanel {
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
+        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
+        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
+        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
+        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
+        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Run.png");
+        InputStream is5 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
+
 
         try {img = ImageIO.read(is);
         } catch (IOException e) {
