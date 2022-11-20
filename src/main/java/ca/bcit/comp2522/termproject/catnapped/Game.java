@@ -5,8 +5,8 @@ public class Game implements Runnable {
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private final int MAX_FPS = 60;
-    private final int UPS_SET = 100;
+    private final int MAX_FPS = 120;
+    private final int UPS_SET = 200;
 
     public Game() {
 
