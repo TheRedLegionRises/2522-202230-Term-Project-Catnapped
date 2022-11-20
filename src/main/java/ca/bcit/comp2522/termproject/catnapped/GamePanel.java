@@ -46,6 +46,13 @@ public class GamePanel extends JPanel {
 
     }
 
+    //Added method for revised Loop
+    public void updateGame() {
+        updateAnimationThread();
+
+    }
+
+
     private void importImg() {
         InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
         InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
