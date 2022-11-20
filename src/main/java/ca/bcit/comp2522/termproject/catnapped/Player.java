@@ -33,28 +33,20 @@ public class Player extends Actor{
 
     private void loadPlayerAnimations() {
         InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
+        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Run.png");
+        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
+        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
+        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
+        InputStream is5 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
 
-        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
-        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
-        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
-        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
+        try {img = ImageIO.read(is1);
 
-        try {img = ImageIO.read(is);
+            runningAnimation = new BufferedImage[8]; // If 5 - get an error - care
 
-            idleAnimation = new BufferedImage[6]; // If 5 - get an error - care
-            runningAnimation = new BufferedImage[8];
-
-            for(int i = 0; i < idleAnimation.length; i++) {
-                idleAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
+            for(int i = 0; i < runningAnimation.length; i++) {
+                runningAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
             }
 
-            for(int j = 0; j < runningAnimation.length; j++) {
-                runningAnimation[j] = img.getSubimage(0, j * 16, 32, 16);
-            }
-
-            allAnimations = new BufferedImage[2][];
-            allAnimations[0] = idleAnimation;
-            allAnimations[1] = runningAnimation;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +67,7 @@ public class Player extends Actor{
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(allAnimations[currentPlayerAction][animationIndex],(int) xCoordinate , (int) yCoordinate, 160, 80,null);
+        g.drawImage(runningAnimation[animationIndex],(int) xCoordinate , (int) yCoordinate, 160, 80,null);
 
     }
 
@@ -84,7 +76,7 @@ public class Player extends Actor{
         if(animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if(animationIndex >= idleAnimation.length)
+            if(animationIndex >= runningAnimation.length)
                 animationIndex = 0;
         }
 
@@ -94,16 +86,16 @@ public class Player extends Actor{
         if (moving) {
             switch (playerDir) {
                 case LEFT:
-                    xCoordinate -= 1;
+                    xCoordinate -= 5;
                     break;
                 case UP:
-                    yCoordinate -= 1;
+                    yCoordinate -= 5;
                     break;
                 case RIGHT:
-                    xCoordinate += 1;
+                    xCoordinate += 5;
                     break;
                 case DOWN:
-                    yCoordinate += 1;
+                    yCoordinate += 5;
                     break;
             }
         }
