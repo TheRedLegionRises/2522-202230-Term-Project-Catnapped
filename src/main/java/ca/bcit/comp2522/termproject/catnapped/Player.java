@@ -17,8 +17,7 @@ public class Player extends Actor{
     private BufferedImage[][] allAnimations = new BufferedImage[6][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
-    private int playerDir = -1;
-    private boolean moving, moveLeft, moveRight, moveUp, moveDown = false;
+    private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown = false;
     private float xCoordinate = 100, yCoordinate = 100;
     private int currentPlayerAction = IDLE;
 
@@ -74,7 +73,7 @@ public class Player extends Actor{
 //        }
     }
 
-    public void updatePosition() {
+    public void updatePlayer() {
         updatePos();
         updateAnimationThread();
 
@@ -87,6 +86,10 @@ public class Player extends Actor{
     }
 
     private void updateAnimationThread() {
+        if (movementChanged) {
+            animationIndex = 0;
+            movementChanged = false;
+        }
         animationTick++;
         if(animationTick >= animationSpeed) {
             animationTick = 0;
@@ -101,12 +104,14 @@ public class Player extends Actor{
 
         if (moveLeft == moveRight) {
             currentPlayerAction = IDLE;
-        } else if (moveRight) {
-            xCoordinate += 1;
+        } else  {
             currentPlayerAction = RUNNING;
-        } else {
-            xCoordinate -= 1;
-            currentPlayerAction = RUNNING;
+            if (moveRight) {
+                xCoordinate += 1;
+
+            } else {
+                xCoordinate -= 1;
+            }
         }
 
         if (moveUp) {
@@ -133,7 +138,7 @@ public class Player extends Actor{
         this.moveDown = moveDown;
     }
 
-    public void setCurrentPlayerAction(int newPlayerAction) {
-        this.currentPlayerAction = newPlayerAction;
+    public void setMovementChanged(boolean hasMovementChanged) {
+        this.movementChanged = hasMovementChanged;
     }
 }
