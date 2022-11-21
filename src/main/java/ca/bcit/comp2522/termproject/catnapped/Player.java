@@ -27,14 +27,7 @@ public class Player extends Actor{
     }
 
     private void loadPlayerAnimations() {
-//        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
-//        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Run.png");
-//        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
-//        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
-//        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
-//        InputStream is5 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
 
-//        try {img = ImageIO.read(is1);
         String[] arrayOfPlayerAnimations = {"/images/King_Mewrthur_Idle.png", "/images/King_Mewrthur_Run.png",
                 "/images/King_Mewrthur_Jump.png", "/images/King_Mewrthur_Take_Damage.png",
                 "/images/King_Mewrthur_Attack_1.png", "/images/King_Mewrthur_Death.png"};
@@ -52,25 +45,6 @@ public class Player extends Actor{
             }
             allAnimations[i] = currentAnimation;
         }
-
-//            img = LoadImages.GetImage(LoadImages.PLAYER_RUN);
-//            runningAnimation = new BufferedImage[8]; // If 5 - get an error - care
-//
-//            for(int i = 0; i < runningAnimation.length; i++) {
-//                runningAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
-//            }
-
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            try{
-//                is.close();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     public void updatePlayer() {
@@ -138,7 +112,4 @@ public class Player extends Actor{
         this.moveDown = moveDown;
     }
 
-    public void setMovementChanged(boolean hasMovementChanged) {
-        this.movementChanged = hasMovementChanged;
-    }
 }
