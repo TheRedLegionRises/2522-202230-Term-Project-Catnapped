@@ -27,7 +27,7 @@ public class Game implements Runnable {
 
     //New Method for Revised Loop
     public void update() {
-        player.updatePosition();
+        player.updatePlayer();
     }
 
     public void render(Graphics g) {
