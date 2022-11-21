@@ -1,12 +1,8 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
-import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.*;
 import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.*;
 
 /**
@@ -32,32 +28,32 @@ public class Player extends Actor{
     }
 
     private void loadPlayerAnimations() {
-        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
-        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Run.png");
-        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
-        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
-        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
-        InputStream is5 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
+//        InputStream is = getClass().getResourceAsStream("/images/King_Mewrthur_Idle.png"); // - 1 slash to reach images
+//        InputStream is1 = getClass().getResourceAsStream("/images/King_Mewrthur_Run.png");
+//        InputStream is2 = getClass().getResourceAsStream("/images/King_Mewrthur_Jump.png");
+//        InputStream is3 = getClass().getResourceAsStream("/images/King_Mewrthur_Take_Damage.png");
+//        InputStream is4 = getClass().getResourceAsStream("/images/King_Mewrthur_Attack_1.png");
+//        InputStream is5 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
 
-        try {img = ImageIO.read(is1);
-
+//        try {img = ImageIO.read(is1);
+            img = LoadImages.GetImage(LoadImages.PLAYER_RUNNING);
             runningAnimation = new BufferedImage[8]; // If 5 - get an error - care
 
             for(int i = 0; i < runningAnimation.length; i++) {
                 runningAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try{
-                is.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        finally {
+//            try{
+//                is.close();
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public void updatePosition() {
