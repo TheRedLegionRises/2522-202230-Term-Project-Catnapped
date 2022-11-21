@@ -14,7 +14,7 @@ public class Player extends Actor{
 
     private final String imageURL = "imageURLGoesHere";
     private BufferedImage[] idleAnimation, runningAnimation;
-    private BufferedImage[][] allAnimations;
+    private BufferedImage[][] allAnimations = new BufferedImage[6][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
     private int playerDir = -1;
@@ -36,12 +36,30 @@ public class Player extends Actor{
 //        InputStream is5 = getClass().getResourceAsStream("/images/King_Mewrthur_Death.png");
 
 //        try {img = ImageIO.read(is1);
-            img = LoadImages.GetImage(LoadImages.PLAYER_RUNNING);
-            runningAnimation = new BufferedImage[8]; // If 5 - get an error - care
+        String[] arrayOfPlayerAnimations = {"/images/King_Mewrthur_Idle.png", "/images/King_Mewrthur_Run.png",
+                "/images/King_Mewrthur_Jump.png", "/images/King_Mewrthur_Take_Damage.png",
+                "/images/King_Mewrthur_Attack_1.png", "/images/King_Mewrthur_Death.png"};
 
-            for(int i = 0; i < runningAnimation.length; i++) {
-                runningAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
+        for (int i = 0; i < 6; i++) {
+            img = LoadImages.GetImage(arrayOfPlayerAnimations[i]);
+            BufferedImage[] currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
+
+            System.out.println("Completed i: "+ i);
+            System.out.println("GetPlayerAttribute: " + GetPlayerAttribute(i));
+            System.out.println("CurrentAnimation length: " + currentAnimation.length);
+
+            for(int j = 0; j < currentAnimation.length; j++) {
+                currentAnimation[j] = img.getSubimage(0, j * 16, img.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
             }
+            allAnimations[i] = currentAnimation;
+        }
+
+//            img = LoadImages.GetImage(LoadImages.PLAYER_RUN);
+//            runningAnimation = new BufferedImage[8]; // If 5 - get an error - care
+//
+//            for(int i = 0; i < runningAnimation.length; i++) {
+//                runningAnimation[i] = img.getSubimage(0, i * 16, 32, 16); // Cat is 16 pixels tall and 32 pixels fat
+//            }
 
 //        } catch (IOException e) {
 //            e.printStackTrace();
@@ -63,7 +81,8 @@ public class Player extends Actor{
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(runningAnimation[animationIndex],(int) xCoordinate , (int) yCoordinate, 160, 80,null);
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex],(int) xCoordinate , (int) yCoordinate,
+                160, 80,null);
 
     }
 
@@ -72,7 +91,7 @@ public class Player extends Actor{
         if(animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if(animationIndex >= runningAnimation.length)
+            if(animationIndex >= allAnimations[currentPlayerAction].length)
                 animationIndex = 0;
         }
 
@@ -80,16 +99,21 @@ public class Player extends Actor{
 
     private void updatePos() {
 
-        if (!moveLeft && moveRight) {
-            xCoordinate += 5;
-        } else if (moveLeft && !moveRight) {
-            xCoordinate -= 5;
+        if (moveLeft == moveRight) {
+            currentPlayerAction = IDLE;
+        } else if (moveRight) {
+            xCoordinate += 1;
+            currentPlayerAction = RUNNING;
+        } else {
+            xCoordinate -= 1;
+            currentPlayerAction = RUNNING;
         }
 
-        if (moveUp && !moveDown) {
-            yCoordinate -= 5;
-        } else if (!moveUp && moveDown) {
-            yCoordinate += 5;
+        if (moveUp) {
+            yCoordinate -= 1;
+            currentPlayerAction = JUMPING;
+        } else if (moveDown) {
+            yCoordinate += 1;
         }
     }
 
@@ -107,5 +131,9 @@ public class Player extends Actor{
 
     public void setMoveDown(boolean moveDown) {
         this.moveDown = moveDown;
+    }
+
+    public void setCurrentPlayerAction(int newPlayerAction) {
+        this.currentPlayerAction = newPlayerAction;
     }
 }
