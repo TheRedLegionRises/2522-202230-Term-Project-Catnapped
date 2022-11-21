@@ -10,6 +10,7 @@ public class Game implements Runnable {
     private final int MAX_FPS = 120;
     private final int UPS_SET = 200;
     private Player player = new Player(0, 0, 0, 0, 0);
+    private DisplayLevel level1 = new DisplayLevel(this);
 
     public Game() {
 
@@ -28,10 +29,12 @@ public class Game implements Runnable {
     //New Method for Revised Loop
     public void update() {
         player.updatePlayer();
+        level1.update();
     }
 
     public void render(Graphics g) {
         player.renderPlayer(g);
+        level1.drawLevel(g);
 
     }
 
