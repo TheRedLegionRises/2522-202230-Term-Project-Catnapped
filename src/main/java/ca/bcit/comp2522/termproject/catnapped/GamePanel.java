@@ -1,13 +1,10 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
-import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.IDLE;
+import static ca.bcit.comp2522.termproject.catnapped.Game.GAME_WINDOW_HEIGHT;
+import static ca.bcit.comp2522.termproject.catnapped.Game.GAME_WINDOW_WIDTH;
 
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
@@ -26,7 +23,7 @@ public class GamePanel extends JPanel {
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(1280, 800); // Good arcade game size
+        Dimension size = new Dimension(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT); // Good arcade game size
         setPreferredSize(size); // jFrame.pack() can find this
 
     }
