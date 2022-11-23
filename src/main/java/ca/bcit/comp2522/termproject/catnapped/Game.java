@@ -12,6 +12,12 @@ public class Game implements Runnable {
     private Player player = new Player(0, 0, 0, 0, 0);
     private DisplayLevel level1 = new DisplayLevel(this);
 
+    public final static int DEFAULT_TILE_SIZE = 32;
+    public static final int TILES_IN_WIDTH = 26;
+    public static final int TILES_IN_HEIGHT = 14;
+    public static final int GAME_WINDOW_WIDTH = TILES_IN_WIDTH * DEFAULT_TILE_SIZE;
+    public static final int GAME_WINDOW_HEIGHT = TILES_IN_HEIGHT * DEFAULT_TILE_SIZE;
+
     public Game() {
 
         System.out.println("Game class works!");
