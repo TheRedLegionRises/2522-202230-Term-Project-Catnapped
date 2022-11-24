@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.PlayerAttributes.*;
+import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
 
 /**
  * Player Class.
@@ -20,6 +21,7 @@ public class Player extends Actor{
     private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown = false;
     private float xCoordinate = 100, yCoordinate = 100;
     private int currentPlayerAction = IDLE;
+    private int[][] levelInfo;
 
     public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
         super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
@@ -46,6 +48,12 @@ public class Player extends Actor{
             allAnimations[i] = currentAnimation;
         }
     }
+
+    public void loadLevelInfo(int[][] newLevelInfo) {
+        this.levelInfo = newLevelInfo;
+    }
+
+
 
     public void updatePlayer() {
         updatePos();
@@ -76,24 +84,36 @@ public class Player extends Actor{
     }
 
     private void updatePos() {
+        if(moveLeft == moveRight && !moveUp && !moveDown) {
+            currentPlayerAction = IDLE;
+            return;
+        }
+
+        float tempXSpeed = 0, tempYSpeed = 0;
 
         if (moveLeft == moveRight) {
-            currentPlayerAction = IDLE;
+//            currentPlayerAction = IDLE;
         } else  {
-            currentPlayerAction = RUNNING;
+//            currentPlayerAction = RUNNING;
             if (moveRight) {
-                x += 1;
+                tempXSpeed = 1;
 
             } else {
-                x -= 1;
+                tempXSpeed = -1;
             }
         }
 
         if (moveUp) {
-            y -= 1;
-            currentPlayerAction = JUMPING;
+            tempYSpeed = -1;
+//            currentPlayerAction = JUMPING;
         } else if (moveDown) {
-            y += 1;
+            tempYSpeed = 1;
+        }
+
+        if(collisionDetection(x + tempXSpeed, y + tempYSpeed, width, height, levelInfo)) {
+            this.x += tempXSpeed;
+            this.y += tempYSpeed;
+            currentPlayerAction = RUNNING;
         }
     }
 
