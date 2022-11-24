@@ -45,4 +45,8 @@ public class DisplayLevel {
     public void update() {
 
     }
+
+    public LevelInfo getCurrentLevel() {
+        return level1;
+    }
 }
