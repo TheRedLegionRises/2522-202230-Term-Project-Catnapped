@@ -40,11 +40,11 @@ public class HelperMethods {
 
     }
 
-    public static float GetEntityNextToWall(Rectangle playerHitbox, float xSpeed) {
-        if (xSpeed > 0) {
-            //Right
-        } else {
-            //Left
-        }
-    }
+//    public static float GetEntityNextToWall(Rectangle playerHitbox, float xSpeed) {
+//        if (xSpeed > 0) {
+//            //Right
+//        } else {
+//            //Left
+//        }
+//    }
 }
