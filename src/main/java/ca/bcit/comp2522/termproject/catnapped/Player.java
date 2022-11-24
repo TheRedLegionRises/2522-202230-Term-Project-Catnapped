@@ -91,6 +91,11 @@ public class Player extends Actor{
     }
 
     private void updatePos() {
+
+        if(jump) {
+            playerJump();
+        }
+
         if(moveLeft == moveRight && !playerInAir) {
             currentPlayerAction = IDLE;
             return;
@@ -109,14 +114,26 @@ public class Player extends Actor{
         }
 
         if(playerInAir) {
-            if(collisionDetection(x, y + airSpeed, width, height, levelInfo)) {
-                y += airSpeed;
+            if(collisionDetection(playerHitbox.x, playerHitbox.y+ airSpeed, playerHitbox.width,
+                    playerHitbox.height, levelInfo)) {
+                playerHitbox.y += airSpeed;
                 airSpeed += gravitySpeed;
                 updateXPosition(tempXSpeed);
+            } else{
+                playerHitbox.y = CheckActorCollisionWithCeilingOrFloor(playerHitbox, airSpeed);
+                if (airSpeed > 0) {
+                    resetIfFloating();
+                } else{
+                    //Fall faster after hitting something (e.g. roof)
+                    airSpeed = 0.5f;
+                    updateXPosition(tempXSpeed);
+                }
             }
         }else {
             updateXPosition(tempXSpeed);
         }
+        currentPlayerAction = RUNNING;
+
 
 //        if (moveUp) {
 //            tempYSpeed = -1;
@@ -125,22 +142,34 @@ public class Player extends Actor{
 //            tempYSpeed = 1;
 //        }
 
-        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y + tempYSpeed,
-                playerHitbox.width, playerHitbox.height, levelInfo)) {
-            playerHitbox.x += tempXSpeed;
-            playerHitbox.y += tempYSpeed;
-            currentPlayerAction = RUNNING;
-        }
-
-//        if(collisionDetection(x + tempXSpeed, y + tempYSpeed, width, height, levelInfo)) {
-//            this.x += tempXSpeed;
+//        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y + tempYSpeed,
+//                playerHitbox.width, playerHitbox.height, levelInfo)) {
+//            playerHitbox.x += tempXSpeed;
+//            playerHitbox.y += tempYSpeed;
 //            currentPlayerAction = RUNNING;
 //        }
+
+    }
+
+    private void playerJump() {
+        if(playerInAir) {
+            return;
+        }
+        playerInAir = true;
+        airSpeed = jumpSpeed;
+    }
+
+    private void resetIfFloating() {
+        playerInAir = false;
+        airSpeed = 0;
     }
 
     private void updateXPosition(float tempXSpeed) {
-        if(collisionDetection(x + tempXSpeed, y + tempYSpeed, width, height, levelInfo)) {
-            this.x += tempXSpeed;
+        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y,
+                playerHitbox.width, playerHitbox.height, levelInfo)) {
+            playerHitbox.x += tempXSpeed;
+        }else {
+            playerHitbox.x = GetActorNextToWall(playerHitbox, tempXSpeed);
         }
     }
 
@@ -158,6 +187,10 @@ public class Player extends Actor{
 
     public void setMoveDown(boolean moveDown) {
         this.moveDown = moveDown;
+    }
+
+    public void setJump(boolean isPlayerJumping) {
+        this.jump = isPlayerJumping;
     }
 
 }
