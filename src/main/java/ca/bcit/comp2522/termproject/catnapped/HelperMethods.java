@@ -3,11 +3,11 @@ package ca.bcit.comp2522.termproject.catnapped;
 import java.awt.*;
 
 public class HelperMethods {
-    public static boolean collisionDetection(float xCoordinate, float yCoordinate, int width, int height,
+    public static boolean collisionDetection(float xCoordinate, float yCoordinate, float width, float height,
                                              int[][] levelInfo) {
-
-        width /= 3;
-        xCoordinate += 40;
+//
+//        width /= 3;
+//        xCoordinate += 40;
 
         if(!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
             if(!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
