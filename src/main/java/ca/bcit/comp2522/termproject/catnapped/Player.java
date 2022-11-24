@@ -18,8 +18,12 @@ public class Player extends Actor{
     private BufferedImage[][] allAnimations = new BufferedImage[6][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
-    private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown = false;
-    private float xCoordinate = 100, yCoordinate = 100;
+    private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown, jump = false;
+    float tempXSpeed = 0, tempYSpeed = 0;
+    private float airSpeed = 0f;
+    private float gravitySpeed = 1;
+    private float jumpSpeed = -2.25f;
+    private boolean playerInAir = false;
     private int currentPlayerAction = IDLE;
     private int[][] levelInfo;
 
@@ -84,12 +88,10 @@ public class Player extends Actor{
     }
 
     private void updatePos() {
-        if(moveLeft == moveRight && !moveUp && !moveDown) {
+        if(moveLeft == moveRight && !playerInAir) {
             currentPlayerAction = IDLE;
             return;
         }
-
-        float tempXSpeed = 0, tempYSpeed = 0;
 
         if (moveLeft == moveRight) {
 //            currentPlayerAction = IDLE;
@@ -103,17 +105,32 @@ public class Player extends Actor{
             }
         }
 
-        if (moveUp) {
-            tempYSpeed = -1;
-//            currentPlayerAction = JUMPING;
-        } else if (moveDown) {
-            tempYSpeed = 1;
+        if(playerInAir) {
+            if(collisionDetection(x, y + airSpeed, width, height, levelInfo)) {
+                y += airSpeed;
+                airSpeed += gravitySpeed;
+                updateXPosition(tempXSpeed);
+            }
+        }else {
+            updateXPosition(tempXSpeed);
         }
+
+//        if (moveUp) {
+//            tempYSpeed = -1;
+////            currentPlayerAction = JUMPING;
+//        } else if (moveDown) {
+//            tempYSpeed = 1;
+//        }
 
         if(collisionDetection(x + tempXSpeed, y + tempYSpeed, width, height, levelInfo)) {
             this.x += tempXSpeed;
-            this.y += tempYSpeed;
             currentPlayerAction = RUNNING;
+        }
+    }
+
+    private void updateXPosition(float tempXSpeed) {
+        if(collisionDetection(x + tempXSpeed, y + tempYSpeed, width, height, levelInfo)) {
+            this.x += tempXSpeed;
         }
     }
 

@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
+import java.awt.*;
+
 public class HelperMethods {
     public static boolean collisionDetection(float xCoordinate, float yCoordinate, int width, int height,
                                              int[][] levelInfo) {
@@ -36,5 +38,13 @@ public class HelperMethods {
         }
         return false;
 
+    }
+
+    public static float GetEntityNextToWall(Rectangle playerHitbox, float xSpeed) {
+        if (xSpeed > 0) {
+            //Right
+        } else {
+            //Left
+        }
     }
 }
