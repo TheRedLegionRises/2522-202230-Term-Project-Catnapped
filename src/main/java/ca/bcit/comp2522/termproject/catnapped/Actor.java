@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Abstract Class Entity.
@@ -10,7 +11,7 @@ import java.awt.*;
 public abstract class Actor {
     protected float x, y;
     protected final int currentHealth, maxHealth, height, width;
-    private Rectangle playerHitbox;
+    protected Rectangle2D.Float playerHitbox;
 
 
     public Actor (float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
@@ -20,25 +21,28 @@ public abstract class Actor {
         this.currentHealth = newMaxHealth;
         this.height = newHeight;
         this.width = newWidth;
-
-        playerHitbox = new Rectangle((int) x, (int) y, width, height);
     }
 
-    public void updateHitbox() {
-        //Empty white space to left because of the way sprite was created so we shift hitbox right
-        playerHitbox.x = (int) x + 40;
-        playerHitbox.y = (int) y;
+//    public void updateHitbox() {
+//        //Empty white space to left because of the way sprite was created so we shift hitbox right
+//        playerHitbox.x = (int) x + 40;
+//        playerHitbox.y = (int) y;
+//    }
+
+    protected void createHitbox(float xCoordinate, float yCoordinate, float width, float height) {
+        playerHitbox = new Rectangle2D.Float( xCoordinate, yCoordinate, width, height);
+
     }
 
     //Could be protected
-    public Rectangle getPlayerHitbox() {
+    public Rectangle2D.Float getPlayerHitbox() {
         return playerHitbox;
     }
 
     public void drawPlayerHitbox(Graphics g) {
         g.setColor(Color.PINK);
         //Divided hitbox width by 3 to be more lenient on player (less raging)
-        g.drawRect(playerHitbox.x, playerHitbox.y, playerHitbox.width / 3, playerHitbox.height);
+        g.drawRect((int) playerHitbox.x, (int) playerHitbox.y, (int) playerHitbox.width, (int) playerHitbox.height);
     }
 
     public float getXCoordinate() {
