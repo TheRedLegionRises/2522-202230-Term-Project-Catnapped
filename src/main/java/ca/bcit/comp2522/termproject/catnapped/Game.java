@@ -9,8 +9,8 @@ public class Game implements Runnable {
     private Thread gameThread;
     private final int MAX_FPS = 120;
     private final int UPS_SET = 200;
-    private Player player = new Player(100, 100, 0, 48, 96);
-    private DisplayLevel level1 = new DisplayLevel(this);
+    private DisplayLevel level1;
+    private Player player;
 
     public final static int DEFAULT_TILE_SIZE = 32;
     public static final int TILES_IN_WIDTH = 26;
@@ -20,11 +20,19 @@ public class Game implements Runnable {
 
     public Game() {
 
+        gameInfo();
+
         System.out.println("Game class works!");
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
         startGameLoop();
+    }
+
+    private void gameInfo() {
+        level1 = new DisplayLevel(this);
+        player = new Player(100, 100, 0, 48, 96);
+        player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
     }
 
     private void startGameLoop() {
