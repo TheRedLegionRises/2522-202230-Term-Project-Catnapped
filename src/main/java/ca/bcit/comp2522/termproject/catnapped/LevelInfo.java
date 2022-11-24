@@ -11,4 +11,8 @@ public class LevelInfo {
         return levelImage[y][x];
     }
 
+    public int[][] getLevelImage() {
+        return levelImage;
+    }
+
 }
