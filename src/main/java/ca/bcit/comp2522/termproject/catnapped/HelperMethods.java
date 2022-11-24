@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
+import java.awt.geom.Rectangle2D;
+
 import java.awt.*;
 
 public class HelperMethods {
@@ -9,10 +11,10 @@ public class HelperMethods {
 //        width /= 3;
 //        xCoordinate += 40;
 
-        if(!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
-            if(!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
-                if(!isSolidTile(xCoordinate + width, yCoordinate, levelInfo)) {
-                    if(!isSolidTile(xCoordinate, yCoordinate + height, levelInfo))
+        if (!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
+            if (!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
+                if (!isSolidTile(xCoordinate + width, yCoordinate, levelInfo)) {
+                    if (!isSolidTile(xCoordinate, yCoordinate + height, levelInfo))
                         return true;
                 }
             }
@@ -33,18 +35,37 @@ public class HelperMethods {
 
         int value = levelInfo[(int) yIndex][(int) xIndex];
 
-        if(value >= 48 || value < 0 || value != 11) {
+        if (value >= 48 || value < 0 || value != 11) {
             return true;
         }
         return false;
 
     }
 
-//    public static float GetActorNextToWall(Rectangle playerHitbox, float xSpeed) {
-//        if (xSpeed > 0) {
-//            //Right
-//        } else {
-//            //Left
-//        }
-//    }
+    public static float GetActorNextToWall(Rectangle2D.Float playerHitbox, float xSpeed) {
+        int currentTile = (int) (playerHitbox.x / Game.DEFAULT_TILE_SIZE);
+        if (xSpeed > 0) {
+            //Right
+            int tileXPosition = currentTile * Game.DEFAULT_TILE_SIZE;
+            int xOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.width / 3);
+            return tileXPosition+ xOffset;
+        } else {
+            //Left
+            return currentTile * Game.DEFAULT_TILE_SIZE;
+        }
+    }
+
+    public static float CheckActorCollisionWithCeilingOrFloor(Rectangle2D.Float playerHitbox, float airSpeed) {
+        int currentTile = (int) (playerHitbox.y / Game.DEFAULT_TILE_SIZE);
+        if (airSpeed > 0) {
+            //Right
+            int tileYPosition = currentTile * Game.DEFAULT_TILE_SIZE;
+            int xOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.height);
+            return tileYPosition+ xOffset - 1;
+        } else {
+            //Left
+            return currentTile * Game.DEFAULT_TILE_SIZE;
+        }
+    }
 }
+
