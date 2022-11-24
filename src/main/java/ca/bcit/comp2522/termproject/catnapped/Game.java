@@ -9,7 +9,7 @@ public class Game implements Runnable {
     private Thread gameThread;
     private final int MAX_FPS = 120;
     private final int UPS_SET = 200;
-    private Player player = new Player(0, 0, 0, 0, 0);
+    private Player player = new Player(100, 100, 0, 48, 96);
     private DisplayLevel level1 = new DisplayLevel(this);
 
     public final static int DEFAULT_TILE_SIZE = 32;

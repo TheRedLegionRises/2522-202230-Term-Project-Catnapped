@@ -50,12 +50,13 @@ public class Player extends Actor{
     public void updatePlayer() {
         updatePos();
         updateAnimationThread();
-
+        updateHitbox();
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(allAnimations[currentPlayerAction][animationIndex],(int) xCoordinate , (int) yCoordinate,
-                160, 80,null);
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex],(int) x, (int) y,
+                width, height,null);
+        drawPlayerHitbox(g);
 
     }
 
@@ -81,18 +82,18 @@ public class Player extends Actor{
         } else  {
             currentPlayerAction = RUNNING;
             if (moveRight) {
-                xCoordinate += 1;
+                x += 1;
 
             } else {
-                xCoordinate -= 1;
+                x -= 1;
             }
         }
 
         if (moveUp) {
-            yCoordinate -= 1;
+            y -= 1;
             currentPlayerAction = JUMPING;
         } else if (moveDown) {
-            yCoordinate += 1;
+            y += 1;
         }
     }
 
