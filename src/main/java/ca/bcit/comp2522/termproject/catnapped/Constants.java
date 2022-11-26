@@ -10,6 +10,7 @@ public class Constants {
         public static final int TAKE_DAMAGE = 3;
         public static final int ATTACK = 4;
         public static final int DEATH = 5;
+        public static final int FALLING = 6;
 
 
         public static int GetPlayerAttribute(int player_action) {
