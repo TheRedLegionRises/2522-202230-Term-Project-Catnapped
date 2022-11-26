@@ -10,6 +10,7 @@ public class HelperMethods {
 //
 //        width /= 3;
 //        xCoordinate += 40;
+//        yCoordinate -= 32;
 
         if (!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
             if (!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
@@ -48,7 +49,7 @@ public class HelperMethods {
             //Right
             int tileXPosition = currentTile * Game.DEFAULT_TILE_SIZE;
             int xOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.width / 3);
-            return tileXPosition+ xOffset;
+            return tileXPosition + 31;
         } else {
             //Left
             return currentTile * Game.DEFAULT_TILE_SIZE;
@@ -58,12 +59,12 @@ public class HelperMethods {
     public static float CheckActorCollisionWithCeilingOrFloor(Rectangle2D.Float playerHitbox, float airSpeed) {
         int currentTile = (int) (playerHitbox.y / Game.DEFAULT_TILE_SIZE);
         if (airSpeed > 0) {
-            //Right
+            //Falling
             int tileYPosition = currentTile * Game.DEFAULT_TILE_SIZE;
-            int xOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.height);
-            return tileYPosition+ xOffset - 1;
+            int yOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.height);
+            return tileYPosition + yOffset + 31;
         } else {
-            //Left
+            //Jumping
             return currentTile * Game.DEFAULT_TILE_SIZE;
         }
     }
