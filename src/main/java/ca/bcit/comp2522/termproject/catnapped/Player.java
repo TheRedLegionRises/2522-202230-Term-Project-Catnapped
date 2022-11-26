@@ -23,7 +23,7 @@ public class Player extends Actor{
     private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown, jump = false;
     float tempXSpeed = 0, tempYSpeed = 0;
     private float airSpeed = 0f;
-    private float gravitySpeed = 1;
+    private float gravitySpeed = 0.04f;
     private float jumpSpeed = -2.25f;
     private boolean playerInAir = false;
     private int currentPlayerAction = IDLE;
