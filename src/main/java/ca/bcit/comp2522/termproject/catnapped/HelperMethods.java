@@ -68,5 +68,15 @@ public class HelperMethods {
             return currentTile * Game.DEFAULT_TILE_SIZE;
         }
     }
+
+    public static boolean IsActorOnFloor(Rectangle2D.Float hitbox, int[][] levelInfo) {
+        //Check bottom left and bottom right corners
+        if (!isSolidTile(hitbox.x, hitbox.y + hitbox.height, levelInfo)) {
+            if (!isSolidTile(hitbox.x + hitbox.width, hitbox.y, levelInfo)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
