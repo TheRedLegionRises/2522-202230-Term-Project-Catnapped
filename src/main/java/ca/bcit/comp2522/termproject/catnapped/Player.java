@@ -98,17 +98,19 @@ public class Player extends Actor{
 
         if(moveLeft == moveRight && !playerInAir) {
             currentPlayerAction = IDLE;
+            tempXSpeed = 0;
             return;
         }
 
-        if (moveLeft == moveRight) {
+//        if (moveLeft == moveRight) {
 //            currentPlayerAction = IDLE;
-        } else  {
+//        }
+        else  {
 //            currentPlayerAction = RUNNING;
             if (moveRight) {
                 tempXSpeed = 1;
 
-            } else {
+            } else if(moveLeft) {
                 tempXSpeed = -1;
             }
         }
