@@ -15,7 +15,7 @@ public class Player extends Actor{
 
     private final String imageURL = "imageURLGoesHere";
     private BufferedImage[] idleAnimation, runningAnimation;
-    private BufferedImage[][] allAnimations = new BufferedImage[6][];
+    private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
     private float xDrawOffset = 20;
@@ -43,11 +43,38 @@ public class Player extends Actor{
 
         for (int i = 0; i < 6; i++) {
             img = LoadImages.GetImage(arrayOfPlayerAnimations[i]);
-            BufferedImage[] currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
+            BufferedImage[] currentAnimation;
 
-            System.out.println("Completed i: "+ i);
-            System.out.println("GetPlayerAttribute: " + GetPlayerAttribute(i));
-            System.out.println("CurrentAnimation length: " + currentAnimation.length);
+//            if (i == 2) {
+//                BufferedImage[] jumpAnimation = new BufferedImage[6];
+//                BufferedImage[] fallAnimation = new BufferedImage[6];
+//                for (int j = 0; j < 12; j++) {
+//                    int jumpAnimationIndex = 0, fallAnimationIndex = 0;
+//                    System.out.println("Value of j: " + j);
+//
+//                        if (j < 8) {
+//                            if (j != 4 && j != 6) {
+//                                jumpAnimation[jumpAnimationIndex++] = img.getSubimage(0, j * 16, img.getWidth(), 16);
+//                            }
+//                        } else {
+//                            if (j != 9 && j != 11) {
+//                                fallAnimation[fallAnimationIndex++] = img.getSubimage(0, j * 16, img.getWidth(), 16);
+//                            }
+//                        }
+//                }
+//                allAnimations[2] = jumpAnimation;
+//                allAnimations[6] = fallAnimation;
+//
+//            }
+//            else {
+//               currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
+//                for(int j = 0; j < currentAnimation.length; j++) {
+//                    currentAnimation[j] = img.getSubimage(0, j * 16, img.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
+//                }
+//                allAnimations[i] = currentAnimation;
+//
+//            }
+            currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
 
             for(int j = 0; j < currentAnimation.length; j++) {
                 currentAnimation[j] = img.getSubimage(0, j * 16, img.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
@@ -91,6 +118,8 @@ public class Player extends Actor{
     }
 
     private void updatePos() {
+        tempXSpeed = 0;
+
 
         if(jump) {
             playerJump();
@@ -98,7 +127,6 @@ public class Player extends Actor{
 
         if(moveLeft == moveRight && !playerInAir) {
             currentPlayerAction = IDLE;
-            tempXSpeed = 0;
             return;
         }
 
@@ -106,16 +134,24 @@ public class Player extends Actor{
 //            currentPlayerAction = IDLE;
 //        }
         else  {
-//            currentPlayerAction = RUNNING;
+            currentPlayerAction = RUNNING;
             if (moveRight) {
                 tempXSpeed = 1;
 
             } else if(moveLeft) {
                 tempXSpeed = -1;
             }
+
+        }
+
+        if (!playerInAir) {
+            if(!IsActorOnFloor(playerHitbox, levelInfo)) {
+                playerInAir = true;
+            }
         }
 
         if(playerInAir) {
+//            currentPlayerAction = JUMPING;
             if(collisionDetection(playerHitbox.x, playerHitbox.y + airSpeed, playerHitbox.width,
                     playerHitbox.height, levelInfo)) {
                 playerHitbox.y += airSpeed;
@@ -134,7 +170,6 @@ public class Player extends Actor{
         }else {
             updateXPosition(tempXSpeed);
         }
-        currentPlayerAction = RUNNING;
 
 
 //        if (moveUp) {
