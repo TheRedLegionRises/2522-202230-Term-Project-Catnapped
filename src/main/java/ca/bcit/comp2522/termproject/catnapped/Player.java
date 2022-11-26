@@ -18,8 +18,8 @@ public class Player extends Actor{
     private BufferedImage[][] allAnimations = new BufferedImage[6][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
-    private float xDrawOffset = 40;
-    private float yDrawOffset = 8;
+    private float xDrawOffset = 20;
+    private float yDrawOffset = 0;
     private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown, jump = false;
     float tempXSpeed = 0, tempYSpeed = 0;
     private float airSpeed = 0f;
@@ -32,7 +32,7 @@ public class Player extends Actor{
     public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
         super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
         loadPlayerAnimations();
-        createHitbox(newXCoordinate, newYCoordinate, 36, 40);
+        createHitbox(newXCoordinate, newYCoordinate, 32, 32);
     }
 
     private void loadPlayerAnimations() {
@@ -69,7 +69,7 @@ public class Player extends Actor{
 
     public void renderPlayer(Graphics g) {
         g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (playerHitbox.x - xDrawOffset),
-                (int) (playerHitbox.y - yDrawOffset),
+                (int) (playerHitbox.y),
                 width, height,null);
         drawPlayerHitbox(g);
 
@@ -116,7 +116,7 @@ public class Player extends Actor{
         }
 
         if(playerInAir) {
-            if(collisionDetection(playerHitbox.x, playerHitbox.y+ airSpeed, playerHitbox.width,
+            if(collisionDetection(playerHitbox.x, playerHitbox.y + airSpeed, playerHitbox.width,
                     playerHitbox.height, levelInfo)) {
                 playerHitbox.y += airSpeed;
                 airSpeed += gravitySpeed;
@@ -128,8 +128,8 @@ public class Player extends Actor{
                 } else{
                     //Fall faster after hitting something (e.g. roof)
                     airSpeed = 0.5f;
-                    updateXPosition(tempXSpeed);
                 }
+                updateXPosition(tempXSpeed);
             }
         }else {
             updateXPosition(tempXSpeed);
@@ -170,6 +170,7 @@ public class Player extends Actor{
         if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y,
                 playerHitbox.width, playerHitbox.height, levelInfo)) {
             playerHitbox.x += tempXSpeed;
+
         }else {
             playerHitbox.x = GetActorNextToWall(playerHitbox, tempXSpeed);
         }
