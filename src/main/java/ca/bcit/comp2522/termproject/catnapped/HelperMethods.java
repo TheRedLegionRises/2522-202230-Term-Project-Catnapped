@@ -62,7 +62,7 @@ public class HelperMethods {
             //Falling
             int tileYPosition = currentTile * Game.DEFAULT_TILE_SIZE;
             int yOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.height);
-            return tileYPosition + yOffset + 31;
+            return tileYPosition + yOffset;
         } else {
             //Jumping
             return currentTile * Game.DEFAULT_TILE_SIZE;
