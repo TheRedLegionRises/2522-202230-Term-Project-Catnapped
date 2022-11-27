@@ -22,7 +22,6 @@ public class Game implements Runnable {
 
         gameInfo();
 
-        System.out.println("Game class works!");
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
