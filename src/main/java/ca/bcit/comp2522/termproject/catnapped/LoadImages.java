@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class LoadImages {
-
     public static final String TERRAIN_IMG = "/images/Terrain.png";
     public static final String TEST_LEVEL = "/images/level_one_data.png";
+    public static final String TEST_LEVEL_LONGER = "/images/test_level.png";
     public static final String MENU_BUTTONS = "/images/menu_buttons.png";
-
     public static final String MENU_BG = "/images/menu_background.png";
+    public static final String PAUSE_MENU = "/images/pause_menu.png";
+    public static final String SOUND_BUTTONS = "/images/sound_button.png";
+    public static final String UTIL_BUTTONS = "/images/util_buttons.png";
+    public static final String VOLUME_BUTTONS = "/images/volume_buttons.png";
 
     public static BufferedImage GetImage(String filePath) {
         BufferedImage img = null;
@@ -35,8 +38,9 @@ public class LoadImages {
     }
 
     public static int[][] GetLevelImages() {
-        int[][] levelImages = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
+
         BufferedImage levelImg = GetImage(TEST_LEVEL);
+        int[][] levelImages = new int[levelImg.getHeight()][levelImg.getWidth()];
 
         for (int j = 0; j < levelImg.getHeight(); j++) {
             for (int i = 0; i < levelImg.getWidth(); i++) {
@@ -49,9 +53,7 @@ public class LoadImages {
                 levelImages[j][i] = value;
             }
         }
-
         return levelImages;
     }
-
 
 }
