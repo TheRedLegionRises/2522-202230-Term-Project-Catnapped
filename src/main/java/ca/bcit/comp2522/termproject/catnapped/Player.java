@@ -32,7 +32,7 @@ public class Player extends Actor{
     public Player(float newXCoordinate, float newYCoordinate, int newHeight, int newWidth) {
         super(newXCoordinate, newYCoordinate, newHeight, newWidth);
         loadPlayerAnimations();
-        createHitbox(newXCoordinate, newYCoordinate, 32, 32);
+        createHitbox(newXCoordinate, newYCoordinate, (int)32,(int) 32);
     }
 
     private void loadPlayerAnimations() {
