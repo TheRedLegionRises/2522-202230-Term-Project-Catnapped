@@ -13,7 +13,6 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
  */
 public class Player extends Actor{
 
-    private final String imageURL = "imageURLGoesHere";
     private BufferedImage[] idleAnimation, runningAnimation;
     private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage img;
