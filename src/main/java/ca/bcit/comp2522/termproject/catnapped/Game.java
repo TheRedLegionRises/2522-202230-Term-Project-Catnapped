@@ -30,7 +30,7 @@ public class Game implements Runnable {
 
     private void gameInfo() {
         level1 = new DisplayLevel(this);
-        player = new Player(100, 100, 0, 32, 64);
+        player = new Player(100, 100, 32, 64);
         player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
     }
 

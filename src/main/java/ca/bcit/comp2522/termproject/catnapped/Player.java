@@ -29,8 +29,8 @@ public class Player extends Actor{
     private int currentPlayerAction = IDLE;
     private int[][] levelInfo;
 
-    public Player(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
-        super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
+    public Player(float newXCoordinate, float newYCoordinate, int newHeight, int newWidth) {
+        super(newXCoordinate, newYCoordinate, newHeight, newWidth);
         loadPlayerAnimations();
         createHitbox(newXCoordinate, newYCoordinate, 32, 32);
     }
