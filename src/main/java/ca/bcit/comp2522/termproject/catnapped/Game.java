@@ -9,9 +9,8 @@ public class Game implements Runnable {
     private Thread gameThread;
     private final int MAX_FPS = 120;
     private final int UPS_SET = 200;
-    private DisplayLevel level1;
-    private Player player;
-
+    private InGame inGame;
+    private Menu menu;
     public final static int DEFAULT_TILE_SIZE = 32;
     public static final int TILES_IN_WIDTH = 26;
     public static final int TILES_IN_HEIGHT = 14;
@@ -19,9 +18,7 @@ public class Game implements Runnable {
     public static final int GAME_WINDOW_HEIGHT = TILES_IN_HEIGHT * DEFAULT_TILE_SIZE;
 
     public Game() {
-
         gameInfo();
-
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
@@ -29,9 +26,10 @@ public class Game implements Runnable {
     }
 
     private void gameInfo() {
-        level1 = new DisplayLevel(this);
-        player = new Player(100, 100, 32, 64);
-        player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
+
+        menu = new Menu(this);
+        inGame = new InGame(this);
+
     }
 
     private void startGameLoop() {
@@ -41,14 +39,34 @@ public class Game implements Runnable {
 
     //New Method for Revised Loop
     public void update() {
-        player.updatePlayer();
-        level1.update();
+        switch(Gamestate.state) {
+            case MENU:
+                    menu.update();
+                break;
+            case INGAME:
+                inGame.update();
+                break;
+            default:
+                break;
+
+
+        }
     }
 
     public void render(Graphics g) {
-        level1.drawLevel(g);
-        player.renderPlayer(g);
+
+        switch(Gamestate.state) {
+            case MENU:
+            menu.draw(g);
+                break;
+            case INGAME:
+                inGame.draw(g);
+                break;
+            default:
+                break;
+        }
     }
+
 
     @Override
     public void run() {
@@ -94,7 +112,12 @@ public class Game implements Runnable {
         }
     }
 
-    public Player getPlayer() {
-        return player;
+    public Menu getMenu() {
+        return menu;
     }
+
+    public InGame getInGame(){
+        return inGame;
+    }
+
 }
