@@ -10,8 +10,8 @@ public class State {
         this.game = game;
     }
 
-    public boolean clickable(MouseEvent e, MenuButton mb) {
-        return mb.getBounds().contains(e.getX(), e.getY());
+    public boolean clickable(MouseEvent e, MenuButtons mb) {
+        return mb.getBoundaries().contains(e.getX(), e.getY());
     }
 
     public Game getGame() {

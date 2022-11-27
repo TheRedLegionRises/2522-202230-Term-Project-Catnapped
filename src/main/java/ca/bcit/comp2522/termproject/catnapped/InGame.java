@@ -6,8 +6,10 @@ import java.awt.event.MouseEvent;
 
 public class InGame extends State implements Statemethods{
 
+    private Pause pause;
     private DisplayLevel level1;
     private Player player;
+    private boolean paused = false;
 
     public InGame(Game game) {
         super(game);
@@ -18,6 +20,7 @@ public class InGame extends State implements Statemethods{
         level1 = new DisplayLevel(game);
         player = new Player(100, 100, 32, 64);
         player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
+        pause = new Pause(this);
     }
 
     public Player getPlayer() {
@@ -27,15 +30,20 @@ public class InGame extends State implements Statemethods{
 
     @Override
     public void update() {
-        level1.update();
-        player.updatePlayer();
-
+        if(!paused){
+            level1.update();
+            player.updatePlayer();
+        } else {
+            pause.update();
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         level1.drawLevel(g);
         player.renderPlayer(g);
+        if(paused)
+        pause.draw(g);
     }
 
     @Override
@@ -49,6 +57,9 @@ public class InGame extends State implements Statemethods{
                 break;
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                paused = !paused;
                 break;
         }
 
@@ -73,21 +84,32 @@ public class InGame extends State implements Statemethods{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+//attacking
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (paused)
+            pause.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (paused)
+            pause.mouseReleased(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        if (paused)
+            pause.mouseMoved(e);
 
     }
+
+    public void unpauseGame() {
+        paused = false;
+    }
+
+
 }

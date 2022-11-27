@@ -3,9 +3,10 @@ package ca.bcit.comp2522.termproject.catnapped;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static ca.bcit.comp2522.termproject.catnapped.LoadImages.TERRAIN_IMG;
+
 public class DisplayLevel {
     private Game game;
-    private static final String terrainImagesURL = "/images/Terrain.png";
     private BufferedImage[] levelImages;
     private LevelInfo level1;
 
@@ -16,7 +17,7 @@ public class DisplayLevel {
     }
 
     private void loadAllSprites() {
-        BufferedImage img = LoadImages.GetImage(terrainImagesURL);
+        BufferedImage img = LoadImages.GetImage(TERRAIN_IMG);
 //        System.out.println("Image Height: " + img.getHeight() + " | Image Width: " + img.getWidth());
         levelImages = new BufferedImage[247];
 
