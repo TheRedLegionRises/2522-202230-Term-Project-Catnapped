@@ -7,10 +7,6 @@ import java.awt.*;
 public class HelperMethods {
     public static boolean collisionDetection(float xCoordinate, float yCoordinate, float width, float height,
                                              int[][] levelInfo) {
-//
-//        width /= 3;
-//        xCoordinate += 40;
-//        yCoordinate -= 32;
 
         if (!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
             if (!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
@@ -71,12 +67,17 @@ public class HelperMethods {
 
     public static boolean IsActorOnFloor(Rectangle2D.Float hitbox, int[][] levelInfo) {
         //Check bottom left and bottom right corners
-        if (!isSolidTile(hitbox.x, hitbox.y + hitbox.height, levelInfo)) {
+        if (!isSolidTile(hitbox.x, hitbox.y + hitbox.height + 1, levelInfo)) {
             if (!isSolidTile(hitbox.x + hitbox.width, hitbox.y, levelInfo)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelInfo) {
+//        System.out.println("Hitbox Height: " + hitbox.height);
+        return isSolidTile(hitbox.x + hitbox.width/2 + xSpeed, hitbox.y + hitbox.height + 1, levelInfo);
     }
 }
 
