@@ -62,10 +62,10 @@ public class Player extends Actor{
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (playerHitbox.x - xDrawOffset),
-                (int) (playerHitbox.y),
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x - xDrawOffset),
+                (int) (actorHitbox.y),
                 width, height,null);
-        drawPlayerHitbox(g);
+        drawActorHitbox(g);
     }
 
     private void updateAnimationThread() {
@@ -107,20 +107,20 @@ public class Player extends Actor{
         }
 
         if (!playerInAir) {
-            if(!IsActorOnFloor(playerHitbox, levelInfo)) {
+            if(!IsActorOnFloor(actorHitbox, levelInfo)) {
                 playerInAir = true;
             }
         }
 
         if(playerInAir) {
 //            currentPlayerAction = JUMPING;
-            if(collisionDetection(playerHitbox.x, playerHitbox.y + airSpeed, playerHitbox.width,
-                    playerHitbox.height, levelInfo)) {
-                playerHitbox.y += airSpeed;
+            if(collisionDetection(actorHitbox.x, actorHitbox.y + airSpeed, actorHitbox.width,
+                    actorHitbox.height, levelInfo)) {
+                actorHitbox.y += airSpeed;
                 airSpeed += gravitySpeed;
                 updateXPosition(tempXSpeed);
             } else{
-                playerHitbox.y = CheckActorCollisionWithCeilingOrFloor(playerHitbox, airSpeed);
+                actorHitbox.y = CheckActorCollisionWithCeilingOrFloor(actorHitbox, airSpeed) + 31;
                 if (airSpeed > 0) {
                     resetIfFloating();
                 } else{
@@ -148,12 +148,12 @@ public class Player extends Actor{
     }
 
     private void updateXPosition(float tempXSpeed) {
-        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y,
-                playerHitbox.width, playerHitbox.height, levelInfo)) {
-            playerHitbox.x += tempXSpeed;
+        if(collisionDetection(actorHitbox.x + tempXSpeed, actorHitbox.y,
+                actorHitbox.width, actorHitbox.height, levelInfo)) {
+            actorHitbox.x += tempXSpeed;
 
         }else {
-            playerHitbox.x = GetActorNextToWall(playerHitbox, tempXSpeed);
+            actorHitbox.x = GetActorNextToWall(actorHitbox, tempXSpeed);
         }
     }
 
