@@ -11,7 +11,7 @@ import java.awt.geom.Rectangle2D;
 public abstract class Actor {
     protected float x, y;
     protected final int currentHealth, maxHealth, height, width;
-    protected Rectangle2D.Float playerHitbox;
+    protected Rectangle2D.Float actorHitbox;
 
 
     public Actor (float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
@@ -30,19 +30,18 @@ public abstract class Actor {
 //    }
 
     protected void createHitbox(float xCoordinate, float yCoordinate, float width, float height) {
-        playerHitbox = new Rectangle2D.Float( xCoordinate, yCoordinate, width, height);
+        actorHitbox = new Rectangle2D.Float( xCoordinate, yCoordinate, width, height);
 
     }
 
     //Could be protected
     public Rectangle2D.Float getHitbox() {
-        return playerHitbox;
+        return actorHitbox;
     }
 
-    public void drawPlayerHitbox(Graphics g) {
+    public void drawActorHitbox(Graphics g) {
         g.setColor(Color.PINK);
-        //Divided hitbox width by 3 to be more lenient on player (less raging)
-        g.drawRect((int) playerHitbox.x, (int) playerHitbox.y, (int) playerHitbox.width, (int) playerHitbox.height);
+        g.drawRect((int) actorHitbox.x, (int) actorHitbox.y, (int) actorHitbox.width, (int) actorHitbox.height);
     }
 
     public float getXCoordinate() {
