@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class LoadImages {
-    private static final String terrainImagesURL = "/images/Terrain.png";
-    private static final String testLevel = "/images/level_one_data.png";
+
+    public static final String terrainImagesURL = "/images/Terrain.png";
+    public static final String testLevel = "/images/level_one_data.png";
+    public static final String MENU_BUTTONS = "/images/menu_buttons.png";
 
     public static BufferedImage GetImage(String filePath) {
         BufferedImage img = null;
