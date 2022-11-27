@@ -2,6 +2,15 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 public class Constants {
 
+    public static class MenuUI {
+
+        public static class Buttons {
+            public static final int BUTTON_WIDTH = 140;
+
+            public static final int BUTTON_HEIGHT= 56;
+        }
+    }
+
     public static class PlayerAttributes {
 
         public static final int IDLE = 0;
