@@ -35,7 +35,7 @@ public abstract class Actor {
     }
 
     //Could be protected
-    public Rectangle2D.Float getPlayerHitbox() {
+    public Rectangle2D.Float getHitbox() {
         return playerHitbox;
     }
 
