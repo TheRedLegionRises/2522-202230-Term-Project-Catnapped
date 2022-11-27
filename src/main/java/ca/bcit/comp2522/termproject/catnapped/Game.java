@@ -10,6 +10,7 @@ public class Game implements Runnable {
     private final int MAX_FPS = 120;
     private final int UPS_SET = 200;
     private DisplayLevel level1;
+    private AllEnemiesManager enemyManager;
     private Player player;
 
     public final static int DEFAULT_TILE_SIZE = 32;
@@ -31,8 +32,10 @@ public class Game implements Runnable {
 
     private void gameInfo() {
         level1 = new DisplayLevel(this);
+        enemyManager = new AllEnemiesManager(this);
         player = new Player(100, 100, 0, 32, 64);
         player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
+
     }
 
     private void startGameLoop() {
@@ -43,12 +46,14 @@ public class Game implements Runnable {
     //New Method for Revised Loop
     public void update() {
         player.updatePlayer();
+        enemyManager.updateEnemies();
         level1.update();
     }
 
     public void render(Graphics g) {
         level1.drawLevel(g);
         player.renderPlayer(g);
+        enemyManager.renderEnemies(g);
     }
 
     @Override
