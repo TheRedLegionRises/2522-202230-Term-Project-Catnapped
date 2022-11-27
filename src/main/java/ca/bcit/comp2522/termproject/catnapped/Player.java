@@ -8,7 +8,7 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
 
 /**
  * Player Class.
- * @author jerry
+ * @author Jerry and Bryan
  * @version 2022
  */
 public class Player extends Actor{
