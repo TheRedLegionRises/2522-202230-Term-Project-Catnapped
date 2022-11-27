@@ -20,7 +20,7 @@ public class Player extends Actor{
     private int animationTick, animationIndex, animationSpeed = 15;
     private float xDrawOffset = 20;
     private float yDrawOffset = 0;
-    private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown, jump = false;
+    private boolean movementChanged, moveLeft, moveRight, jump = false;
     float tempXSpeed = 0, tempYSpeed = 0;
     private float airSpeed = 0f;
     private float gravitySpeed = 0.04f;
@@ -219,13 +219,13 @@ public class Player extends Actor{
         this.moveRight = moveRight;
     }
 
-    public void setMoveUp(boolean moveUp) {
-        this.moveUp = moveUp;
-    }
+//    public void setMoveUp(boolean moveUp) {
+//        this.moveUp = moveUp;
+//    }
 
-    public void setMoveDown(boolean moveDown) {
-        this.moveDown = moveDown;
-    }
+//    public void setMoveDown(boolean moveDown) {
+//        this.moveDown = moveDown;
+//    }
 
     public void setJump(boolean isPlayerJumping) {
         this.jump = isPlayerJumping;
