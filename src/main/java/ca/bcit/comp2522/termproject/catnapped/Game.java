@@ -46,7 +46,7 @@ public class Game implements Runnable {
     //New Method for Revised Loop
     public void update() {
         player.updatePlayer();
-        enemyManager.updateEnemies();
+        enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage());
         level1.update();
     }
 
