@@ -8,8 +8,9 @@ public class Constants {
         public static final int ATTACK = 3;
         public static final int DEATH = 4;
 
-        public static final int ENEMY_WIDTH = 32;
-        public static final int ENEMY_HEIGHT = 32;
+        public static final int ENEMY_WIDTH = 34;
+        public static final int ENEMY_HEIGHT = 28;
+        public static final int ENEMY_IDENTIFIER = 0;
 
         public static int GetEnemyAttribute(int enemy_action) {
 
