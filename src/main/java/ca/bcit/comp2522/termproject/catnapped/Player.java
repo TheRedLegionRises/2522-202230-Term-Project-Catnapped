@@ -13,14 +13,12 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
  */
 public class Player extends Actor{
 
-    private final String imageURL = "imageURLGoesHere";
-    private BufferedImage[] idleAnimation, runningAnimation;
-    private BufferedImage[][] allAnimations = new BufferedImage[7][];
+    private BufferedImage[][] allAnimations = new BufferedImage[6][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
     private float xDrawOffset = 20;
     private float yDrawOffset = 0;
-    private boolean movementChanged, moveLeft, moveRight, moveUp, moveDown, jump = false;
+    private boolean movementChanged, moveLeft, moveRight, jump = false;
     float tempXSpeed = 0, tempYSpeed = 0;
     private float airSpeed = 0f;
     private float gravitySpeed = 0.04f;
@@ -45,35 +43,6 @@ public class Player extends Actor{
             img = LoadImages.GetImage(arrayOfPlayerAnimations[i]);
             BufferedImage[] currentAnimation;
 
-//            if (i == 2) {
-//                BufferedImage[] jumpAnimation = new BufferedImage[6];
-//                BufferedImage[] fallAnimation = new BufferedImage[6];
-//                for (int j = 0; j < 12; j++) {
-//                    int jumpAnimationIndex = 0, fallAnimationIndex = 0;
-//                    System.out.println("Value of j: " + j);
-//
-//                        if (j < 8) {
-//                            if (j != 4 && j != 6) {
-//                                jumpAnimation[jumpAnimationIndex++] = img.getSubimage(0, j * 16, img.getWidth(), 16);
-//                            }
-//                        } else {
-//                            if (j != 9 && j != 11) {
-//                                fallAnimation[fallAnimationIndex++] = img.getSubimage(0, j * 16, img.getWidth(), 16);
-//                            }
-//                        }
-//                }
-//                allAnimations[2] = jumpAnimation;
-//                allAnimations[6] = fallAnimation;
-//
-//            }
-//            else {
-//               currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
-//                for(int j = 0; j < currentAnimation.length; j++) {
-//                    currentAnimation[j] = img.getSubimage(0, j * 16, img.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
-//                }
-//                allAnimations[i] = currentAnimation;
-//
-//            }
             currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
 
             for(int j = 0; j < currentAnimation.length; j++) {
@@ -87,8 +56,6 @@ public class Player extends Actor{
         this.levelInfo = newLevelInfo;
     }
 
-
-
     public void updatePlayer() {
         updatePos();
         updateAnimationThread();
@@ -99,7 +66,6 @@ public class Player extends Actor{
                 (int) (playerHitbox.y),
                 width, height,null);
         drawPlayerHitbox(g);
-
     }
 
     private void updateAnimationThread() {
@@ -130,9 +96,6 @@ public class Player extends Actor{
             return;
         }
 
-//        if (moveLeft == moveRight) {
-//            currentPlayerAction = IDLE;
-//        }
         else  {
             currentPlayerAction = RUNNING;
             if (moveRight) {
@@ -141,7 +104,6 @@ public class Player extends Actor{
             } else if(moveLeft) {
                 tempXSpeed = -1;
             }
-
         }
 
         if (!playerInAir) {
@@ -170,22 +132,6 @@ public class Player extends Actor{
         }else {
             updateXPosition(tempXSpeed);
         }
-
-
-//        if (moveUp) {
-//            tempYSpeed = -1;
-////            currentPlayerAction = JUMPING;
-//        } else if (moveDown) {
-//            tempYSpeed = 1;
-//        }
-
-//        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y + tempYSpeed,
-//                playerHitbox.width, playerHitbox.height, levelInfo)) {
-//            playerHitbox.x += tempXSpeed;
-//            playerHitbox.y += tempYSpeed;
-//            currentPlayerAction = RUNNING;
-//        }
-
     }
 
     private void playerJump() {
@@ -217,14 +163,6 @@ public class Player extends Actor{
 
     public void setMoveRight(boolean moveRight) {
         this.moveRight = moveRight;
-    }
-
-    public void setMoveUp(boolean moveUp) {
-        this.moveUp = moveUp;
-    }
-
-    public void setMoveDown(boolean moveDown) {
-        this.moveDown = moveDown;
     }
 
     public void setJump(boolean isPlayerJumping) {
