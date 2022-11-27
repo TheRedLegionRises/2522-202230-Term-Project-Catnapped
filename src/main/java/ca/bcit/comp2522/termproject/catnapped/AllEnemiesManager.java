@@ -25,20 +25,18 @@ public class AllEnemiesManager {
         System.out.println("Size of crabs: " + listOfEnemies.size());
     }
 
-    public void updateEnemies() {
+    public void updateEnemies(int[][] levelInfo) {
         for (Enemy eachEnemy : listOfEnemies) {
-            eachEnemy.updateEnemy();
+            eachEnemy.updateEnemy(levelInfo);
         }
-    }
-
-    public void drawEnemies(Graphics g) {
-        renderEnemies(g);
     }
 
     public void renderEnemies(Graphics g) {
         for (Enemy enemy : listOfEnemies) {
-            g.drawImage(allEnemyAnimations[enemy.getEnemyAction()][enemy.getAnimationIndex()], (int) enemy.getHitbox().x,
-                    (int) enemy.getHitbox().y, ENEMY_WIDTH, ENEMY_HEIGHT, null);
+            g.drawImage(allEnemyAnimations[enemy.getEnemyAction()][enemy.getAnimationIndex()],
+                    (int) enemy.getHitbox().x - HITBOX_OFFSET_X, (int) enemy.getHitbox().y - HITBOX_OFFSET_Y,
+                    ENEMY_WIDTH, ENEMY_HEIGHT, null);
+            enemy.drawActorHitbox(g);
         }
     }
 
@@ -57,7 +55,7 @@ public class AllEnemiesManager {
             currentAnimation = new BufferedImage[GetEnemyAttribute(i)]; // If 5 - get an error - care
 
             for (int j = 0; j < currentAnimation.length; j++) {
-                currentAnimation[j] = img.getSubimage(j * ENEMY_WIDTH, 0, ENEMY_WIDTH, img.getHeight()); // Cat is 16 pixels tall and 32 pixels fat
+                currentAnimation[j] = img.getSubimage(j * ENEMY_ANIMATION_WIDTH, 0, ENEMY_ANIMATION_WIDTH, img.getHeight()); // Cat is 16 pixels tall and 32 pixels fat
             }
             allEnemyAnimations[i] = currentAnimation;
         }
