@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+
+import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
 public class LoadImages {
     public static final String TERRAIN_IMG = "/images/Terrain.png";
@@ -37,12 +40,32 @@ public class LoadImages {
         return img;
     }
 
+    public static ArrayList<Enemy> GetEnemies() {
+        BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
+        ArrayList<Enemy> enemyList = new ArrayList<>();
+
+        for (int j = 0; j < levelImg.getHeight(); j++) {
+            for (int i = 0; i < levelImg.getWidth(); i++) {
+                Color color = new Color(levelImg.getRGB(i, j));
+                int value = color.getGreen();
+
+                if (value == ENEMY_IDENTIFIER) {
+                    enemyList.add(new Enemy(i * Game.DEFAULT_TILE_SIZE,
+                            j * Game.DEFAULT_TILE_SIZE, 1, ENEMY_HEIGHT, ENEMY_WIDTH));
+                }
+            }
+        }
+        return enemyList;
+
+    }
+
     public static int[][] GetLevelImages() {
 
         BufferedImage levelImg = GetImage(TEST_LEVEL);
         int[][] levelImages = new int[levelImg.getHeight()][levelImg.getWidth()];
 
         for (int j = 0; j < levelImg.getHeight(); j++) {
+//            System.out.print("J: " + j);
             for (int i = 0; i < levelImg.getWidth(); i++) {
                 Color color = new Color(levelImg.getRGB(i, j));
                 int value = color.getRed();
@@ -55,5 +78,5 @@ public class LoadImages {
         }
         return levelImages;
     }
-
+    
 }

@@ -11,6 +11,10 @@ public class Game implements Runnable {
     private final int UPS_SET = 200;
     private InGame inGame;
     private Menu menu;
+    private DisplayLevel level1;
+    private AllEnemiesManager enemyManager;
+    private Player player;
+    
     public final static int DEFAULT_TILE_SIZE = 32;
     public static final int TILES_IN_WIDTH = 26;
     public static final int TILES_IN_HEIGHT = 14;
@@ -26,9 +30,12 @@ public class Game implements Runnable {
     }
 
     private void gameInfo() {
-
         menu = new Menu(this);
         inGame = new InGame(this);
+        level1 = new DisplayLevel(this);
+        enemyManager = new AllEnemiesManager(this);
+        player = new Player(100, 100, 0, 32, 64);
+        player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
 
     }
 
@@ -36,6 +43,19 @@ public class Game implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
+//    //New Method for Revised Loop
+//    public void update() {
+//        player.updatePlayer();
+//        enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage());
+//        level1.update();
+//    }
+//
+//    public void render(Graphics g) {
+//        level1.drawLevel(g);
+//        player.renderPlayer(g);
+//        enemyManager.renderEnemies(g);
+//    }
 
     //New Method for Revised Loop
     public void update() {
@@ -115,6 +135,10 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Menu getMenu() {

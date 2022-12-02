@@ -62,7 +62,7 @@ public class HelperMethods {
             //Falling
             int tileYPosition = currentTile * Game.DEFAULT_TILE_SIZE;
             int yOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.height);
-            return tileYPosition + yOffset + 31;
+            return tileYPosition + yOffset;
         } else {
             //Jumping
             return currentTile * Game.DEFAULT_TILE_SIZE;
@@ -71,12 +71,41 @@ public class HelperMethods {
 
     public static boolean IsActorOnFloor(Rectangle2D.Float hitbox, int[][] levelInfo) {
         //Check bottom left and bottom right corners
-        if (!isSolidTile(hitbox.x, hitbox.y + hitbox.height, levelInfo)) {
+        if (!isSolidTile(hitbox.x, hitbox.y + hitbox.height + 1, levelInfo)) {
             if (!isSolidTile(hitbox.x + hitbox.width, hitbox.y, levelInfo)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelInfo) {
+//        System.out.println("Hitbox Height: " + hitbox.height);
+        return isSolidTile(hitbox.x + hitbox.width / 2 + xSpeed, hitbox.y + hitbox.height + 1, levelInfo);
+    }
+
+    private static boolean noTilesInBetween(int[][] levelInfo, int startIndex, int endIndex, int yPosition) {
+        for (int i = startIndex; i < endIndex; i++) {
+            if (isSolidTile(i, yPosition, levelInfo)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean ClearLineOfSight(int[][] levelInfo, Rectangle2D.Float objectHitbox,
+                                           Rectangle2D.Float playerHitbox, int objectYPosition) {
+
+        int objectXTile = (int) objectHitbox.x / Game.DEFAULT_TILE_SIZE;
+        int playerXTile = (int) playerHitbox.x / Game.DEFAULT_TILE_SIZE;
+
+        if (objectXTile > playerXTile) {
+            return noTilesInBetween(levelInfo, playerXTile, objectXTile, objectYPosition);
+
+        } else {
+            return noTilesInBetween(levelInfo, objectXTile, playerXTile, objectYPosition);
+        }
+
     }
 }
 

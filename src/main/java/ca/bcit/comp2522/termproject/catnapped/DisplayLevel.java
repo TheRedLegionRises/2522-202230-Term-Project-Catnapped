@@ -18,7 +18,7 @@ public class DisplayLevel {
 
     private void loadAllSprites() {
         BufferedImage img = LoadImages.GetImage(TERRAIN_IMG);
-//        System.out.println("Image Height: " + img.getHeight() + " | Image Width: " + img.getWidth());
+//       System.out.println("Image Height: " + img.getHeight() + " | Image Width: " + img.getWidth());
         levelImages = new BufferedImage[247];
 
         for (int i = 0; i < 4; i++) {

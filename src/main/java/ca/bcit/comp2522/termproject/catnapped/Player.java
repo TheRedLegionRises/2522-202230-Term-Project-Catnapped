@@ -12,8 +12,7 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
  * @version 2022
  */
 public class Player extends Actor{
-
-    private BufferedImage[] idleAnimation, runningAnimation;
+    
     private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
@@ -94,11 +93,10 @@ public class Player extends Actor{
     }
 
     public void renderPlayer(Graphics g) {
-        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (playerHitbox.x - xDrawOffset),
-                (int) (playerHitbox.y),
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x - xDrawOffset),
+                (int) (actorHitbox.y),
                 width, height,null);
-        drawPlayerHitbox(g);
-
+        drawActorHitbox(g);
     }
 
     private void updateAnimationThread() {
@@ -200,13 +198,106 @@ public class Player extends Actor{
         airSpeed = 0;
     }
 
+    public void updatePosition() {
+
+    public void updatePlayer() {
+        updatePos();
+        updateAnimationThread();
+    }
+
+    public void renderPlayer(Graphics g) {
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x - xDrawOffset),
+                (int) (actorHitbox.y),
+                width, height,null);
+        drawActorHitbox(g);
+    }
+
+    private void updateAnimationThread() {
+        if (movementChanged) {
+            animationIndex = 0;
+            movementChanged = false;
+        }
+        animationTick++;
+        if(animationTick >= animationSpeed) {
+            animationTick = 0;
+            animationIndex++;
+            if(animationIndex >= allAnimations[currentPlayerAction].length)
+                animationIndex = 0;
+        }
+
+    }
+
+    private void updatePos() {
+        tempXSpeed = 0;
+
+
+        if(jump) {
+            playerJump();
+        }
+
+        if(moveLeft == moveRight && !playerInAir) {
+            currentPlayerAction = IDLE;
+            return;
+        }
+
+        else  {
+            currentPlayerAction = RUNNING;
+            if (moveRight) {
+                tempXSpeed = 1;
+
+            } else if(moveLeft) {
+                tempXSpeed = -1;
+            }
+        }
+
+        if (!playerInAir) {
+            if(!IsActorOnFloor(actorHitbox, levelInfo)) {
+                playerInAir = true;
+            }
+        }
+
+        if(playerInAir) {
+//            currentPlayerAction = JUMPING;
+            if(collisionDetection(actorHitbox.x, actorHitbox.y + airSpeed, actorHitbox.width,
+                    actorHitbox.height, levelInfo)) {
+                actorHitbox.y += airSpeed;
+                airSpeed += gravitySpeed;
+                updateXPosition(tempXSpeed);
+            } else{
+                actorHitbox.y = CheckActorCollisionWithCeilingOrFloor(actorHitbox, airSpeed) + 31;
+                if (airSpeed > 0) {
+                    resetIfFloating();
+                } else{
+                    //Fall faster after hitting something (e.g. roof)
+                    airSpeed = 0.5f;
+                }
+                updateXPosition(tempXSpeed);
+            }
+        }else {
+            updateXPosition(tempXSpeed);
+        }
+    }
+
+    private void playerJump() {
+        if(playerInAir) {
+            return;
+        }
+        playerInAir = true;
+        airSpeed = jumpSpeed;
+    }
+
+    private void resetIfFloating() {
+        playerInAir = false;
+        airSpeed = 0;
+    }
+
     private void updateXPosition(float tempXSpeed) {
-        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y,
-                playerHitbox.width, playerHitbox.height, levelInfo)) {
-            playerHitbox.x += tempXSpeed;
+        if(collisionDetection(actorHitbox.x + tempXSpeed, actorHitbox.y,
+                actorHitbox.width, actorHitbox.height, levelInfo)) {
+            actorHitbox.x += tempXSpeed;
 
         }else {
-            playerHitbox.x = GetActorNextToWall(playerHitbox, tempXSpeed);
+            actorHitbox.x = GetActorNextToWall(actorHitbox, tempXSpeed);
         }
     }
 
@@ -217,14 +308,6 @@ public class Player extends Actor{
     public void setMoveRight(boolean moveRight) {
         this.moveRight = moveRight;
     }
-
-//    public void setMoveUp(boolean moveUp) {
-//        this.moveUp = moveUp;
-//    }
-
-//    public void setMoveDown(boolean moveDown) {
-//        this.moveDown = moveDown;
-//    }
 
     public void setJump(boolean isPlayerJumping) {
         this.jump = isPlayerJumping;
