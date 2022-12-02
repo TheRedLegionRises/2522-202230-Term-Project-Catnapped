@@ -10,15 +10,12 @@ import java.awt.geom.Rectangle2D;
  */
 public abstract class Actor {
     protected float x, y;
-    protected final int currentHealth, maxHealth, height, width;
+    protected final int height, width;
     protected Rectangle2D.Float actorHitbox;
 
-
-    public Actor (float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
+    public Actor (float newXCoordinate, float newYCoordinate, int newHeight, int newWidth) {
         this.x = newXCoordinate;
         this.y = newYCoordinate;
-        this.maxHealth = newMaxHealth;
-        this.currentHealth = newMaxHealth;
         this.height = newHeight;
         this.width = newWidth;
     }

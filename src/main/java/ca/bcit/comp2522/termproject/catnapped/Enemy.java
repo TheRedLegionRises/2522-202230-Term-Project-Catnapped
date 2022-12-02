@@ -16,8 +16,8 @@ public class Enemy extends Actor{
     private float attackRange = Game.DEFAULT_TILE_SIZE;
     private float viewRange = 5 * attackRange;
 
-    public Enemy(float newXCoordinate, float newYCoordinate, int newMaxHealth, int newHeight, int newWidth) {
-        super(newXCoordinate, newYCoordinate, newMaxHealth, newHeight, newWidth);
+    public Enemy(float newXCoordinate, float newYCoordinate , int newHeight, int newWidth) {
+        super(newXCoordinate, newYCoordinate, newHeight, newWidth);
         createHitbox(newXCoordinate, newYCoordinate, 20, 20);
 
     }

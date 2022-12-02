@@ -99,6 +99,7 @@ public class Player extends Actor{
         drawActorHitbox(g);
     }
 
+
     private void updateAnimationThread() {
         if (movementChanged) {
             animationIndex = 0;
@@ -111,77 +112,6 @@ public class Player extends Actor{
             if(animationIndex >= allAnimations[currentPlayerAction].length)
                 animationIndex = 0;
         }
-
-    }
-
-    private void updatePos() {
-        tempXSpeed = 0;
-
-
-        if(jump) {
-            playerJump();
-        }
-
-        if(moveLeft == moveRight && !playerInAir) {
-            currentPlayerAction = IDLE;
-            return;
-        }
-
-//        if (moveLeft == moveRight) {
-//            currentPlayerAction = IDLE;
-//        }
-        else  {
-            currentPlayerAction = RUNNING;
-            if (moveRight) {
-                tempXSpeed = 1;
-
-            } else if(moveLeft) {
-                tempXSpeed = -1;
-            }
-
-        }
-
-        if (!playerInAir) {
-            if(!IsActorOnFloor(playerHitbox, levelInfo)) {
-                playerInAir = true;
-            }
-        }
-
-        if(playerInAir) {
-//            currentPlayerAction = JUMPING;
-            if(collisionDetection(playerHitbox.x, playerHitbox.y + airSpeed, playerHitbox.width,
-                    playerHitbox.height, levelInfo)) {
-                playerHitbox.y += airSpeed;
-                airSpeed += gravitySpeed;
-                updateXPosition(tempXSpeed);
-            } else{
-                playerHitbox.y = CheckActorCollisionWithCeilingOrFloor(playerHitbox, airSpeed);
-                if (airSpeed > 0) {
-                    resetIfFloating();
-                } else{
-                    //Fall faster after hitting something (e.g. roof)
-                    airSpeed = 0.5f;
-                }
-                updateXPosition(tempXSpeed);
-            }
-        }else {
-            updateXPosition(tempXSpeed);
-        }
-
-
-//        if (moveUp) {
-//            tempYSpeed = -1;
-////            currentPlayerAction = JUMPING;
-//        } else if (moveDown) {
-//            tempYSpeed = 1;
-//        }
-
-//        if(collisionDetection(playerHitbox.x + tempXSpeed, playerHitbox.y + tempYSpeed,
-//                playerHitbox.width, playerHitbox.height, levelInfo)) {
-//            playerHitbox.x += tempXSpeed;
-//            playerHitbox.y += tempYSpeed;
-//            currentPlayerAction = RUNNING;
-//        }
 
     }
 
@@ -198,34 +128,7 @@ public class Player extends Actor{
         airSpeed = 0;
     }
 
-    public void updatePosition() {
 
-    public void updatePlayer() {
-        updatePos();
-        updateAnimationThread();
-    }
-
-    public void renderPlayer(Graphics g) {
-        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x - xDrawOffset),
-                (int) (actorHitbox.y),
-                width, height,null);
-        drawActorHitbox(g);
-    }
-
-    private void updateAnimationThread() {
-        if (movementChanged) {
-            animationIndex = 0;
-            movementChanged = false;
-        }
-        animationTick++;
-        if(animationTick >= animationSpeed) {
-            animationTick = 0;
-            animationIndex++;
-            if(animationIndex >= allAnimations[currentPlayerAction].length)
-                animationIndex = 0;
-        }
-
-    }
 
     private void updatePos() {
         tempXSpeed = 0;
@@ -278,18 +181,6 @@ public class Player extends Actor{
         }
     }
 
-    private void playerJump() {
-        if(playerInAir) {
-            return;
-        }
-        playerInAir = true;
-        airSpeed = jumpSpeed;
-    }
-
-    private void resetIfFloating() {
-        playerInAir = false;
-        airSpeed = 0;
-    }
 
     private void updateXPosition(float tempXSpeed) {
         if(collisionDetection(actorHitbox.x + tempXSpeed, actorHitbox.y,

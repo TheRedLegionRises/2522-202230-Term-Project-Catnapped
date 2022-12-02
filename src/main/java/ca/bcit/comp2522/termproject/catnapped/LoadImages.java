@@ -11,6 +11,7 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
 public class LoadImages {
     public static final String TERRAIN_IMG = "/images/Terrain.png";
+
     public static final String TEST_LEVEL = "/images/level_one_data.png";
     public static final String TEST_LEVEL_LONGER = "/images/test_level.png";
     public static final String MENU_BUTTONS = "/images/menu_buttons.png";
@@ -50,8 +51,7 @@ public class LoadImages {
                 int value = color.getGreen();
 
                 if (value == ENEMY_IDENTIFIER) {
-                    enemyList.add(new Enemy(i * Game.DEFAULT_TILE_SIZE,
-                            j * Game.DEFAULT_TILE_SIZE, 1, ENEMY_HEIGHT, ENEMY_WIDTH));
+                    enemyList.add(new Enemy(i * Game.DEFAULT_TILE_SIZE, j * Game.DEFAULT_TILE_SIZE, ENEMY_HEIGHT, ENEMY_WIDTH));
                 }
             }
         }
@@ -61,7 +61,7 @@ public class LoadImages {
 
     public static int[][] GetLevelImages() {
 
-        BufferedImage levelImg = GetImage(TEST_LEVEL);
+        BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
         int[][] levelImages = new int[levelImg.getHeight()][levelImg.getWidth()];
 
         for (int j = 0; j < levelImg.getHeight(); j++) {

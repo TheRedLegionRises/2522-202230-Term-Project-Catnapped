@@ -33,8 +33,8 @@ public class Game implements Runnable {
         menu = new Menu(this);
         inGame = new InGame(this);
         level1 = new DisplayLevel(this);
-        enemyManager = new AllEnemiesManager(this);
-        player = new Player(100, 100, 0, 32, 64);
+//        enemyManager = new AllEnemiesManager();
+        player = new Player(100, 100, 32, 64);
         player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
 
     }

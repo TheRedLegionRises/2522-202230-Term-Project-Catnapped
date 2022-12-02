@@ -9,6 +9,8 @@ public class InGame extends State implements Statemethods{
     private Pause pause;
     private DisplayLevel level1;
     private Player player;
+
+    private AllEnemiesManager enemyManager;
     private boolean paused = false;
 
     public InGame(Game game) {
@@ -18,6 +20,7 @@ public class InGame extends State implements Statemethods{
 
     private void gameInfo() {
         level1 = new DisplayLevel(game);
+        enemyManager = new AllEnemiesManager(this);
         player = new Player(100, 100, 32, 64);
         player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
         pause = new Pause(this);
@@ -32,6 +35,7 @@ public class InGame extends State implements Statemethods{
     public void update() {
         if(!paused){
             level1.update();
+            enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage());
             player.updatePlayer();
         } else {
             pause.update();
@@ -42,6 +46,7 @@ public class InGame extends State implements Statemethods{
     public void draw(Graphics g) {
         level1.drawLevel(g);
         player.renderPlayer(g);
+        enemyManager.renderEnemies(g);
         if(paused)
         pause.draw(g);
     }

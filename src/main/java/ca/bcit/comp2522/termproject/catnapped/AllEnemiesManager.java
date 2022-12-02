@@ -9,13 +9,13 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 public class AllEnemiesManager {
 //    private Playing playing;
     private Game game;
+    private InGame inGame;
     private static final int NUMBER_OF_ANIMATIONS = 5;
     private BufferedImage[][] allEnemyAnimations;
     private ArrayList<Enemy> listOfEnemies = new ArrayList<>();
 
-    public AllEnemiesManager(Game game) {
-//        this.playing = playing;
-        this.game = game;
+    public AllEnemiesManager(InGame inGame) {
+        this.inGame = inGame;
         loadEnemyImages();
         addEnemies();
     }
