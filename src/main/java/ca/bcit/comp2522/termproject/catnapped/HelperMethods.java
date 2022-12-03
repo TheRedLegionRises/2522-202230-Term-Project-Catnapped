@@ -7,6 +7,7 @@ import java.awt.*;
 public class HelperMethods {
     public static boolean collisionDetection(float xCoordinate, float yCoordinate, float width, float height,
                                              int[][] levelInfo) {
+
         if (!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
             if (!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
                 if (!isSolidTile(xCoordinate + width, yCoordinate, levelInfo)) {
@@ -19,7 +20,8 @@ public class HelperMethods {
     }
 
     private static boolean isSolidTile(float x, float y, int[][] levelInfo) {
-        if (x < 0 || x >= Game.GAME_WINDOW_WIDTH) {
+        int maxWidth = levelInfo[0].length * Game.TEST_SIZE;
+        if (x < 0 || x >= maxWidth) {
             return true;
         }
         if (y < 0 || y >= Game.GAME_WINDOW_HEIGHT) {
@@ -103,4 +105,3 @@ public class HelperMethods {
 
     }
 }
-
