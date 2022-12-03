@@ -12,6 +12,12 @@ public class InGame extends State implements Statemethods{
 
     private AllEnemiesManager enemyManager;
     private boolean paused = false;
+    private int xLvlOffset;
+    private int leftBorder = (int) (0.2 * Game.GAME_WINDOW_WIDTH);
+    private int rightBorder = (int) (0.9 * Game.GAME_WINDOW_WIDTH);
+    private int lvlTilesWide = LoadImages.GetLevelImages()[0].length;
+    private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+    private int maxLvlOffsetX = maxTilesOffset * Game.TEST_SIZE;
 
     public InGame(Game game) {
         super(game);
@@ -37,18 +43,39 @@ public class InGame extends State implements Statemethods{
             level1.update();
             enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage());
             player.updatePlayer();
+            checkCloseToBorder();
+
         } else {
             pause.update();
         }
     }
 
+    private void checkCloseToBorder() {
+        int playerX = (int) player.getHitbox().x;
+        int diff = playerX - xLvlOffset;
+
+        if (diff > rightBorder)
+            xLvlOffset += diff - rightBorder;
+        else if (diff < leftBorder)
+            xLvlOffset += diff - leftBorder;
+
+        if (xLvlOffset > maxLvlOffsetX)
+            xLvlOffset = maxLvlOffsetX;
+        else if (xLvlOffset < 0)
+            xLvlOffset = 0;
+
+    }
+
     @Override
     public void draw(Graphics g) {
-        level1.drawLevel(g);
-        player.renderPlayer(g);
-        enemyManager.renderEnemies(g);
-        if(paused)
-        pause.draw(g);
+        level1.drawLevel(g, xLvlOffset);
+        player.renderPlayer(g, xLvlOffset);
+        enemyManager.renderEnemies(g, xLvlOffset);
+        if(paused) {
+                g.setColor(new Color(0,0,0,150));
+                g.fillRect(0,0,Game.GAME_WINDOW_WIDTH, Game.GAME_WINDOW_HEIGHT);
+            pause.draw(g);
+        }
     }
 
     @Override
