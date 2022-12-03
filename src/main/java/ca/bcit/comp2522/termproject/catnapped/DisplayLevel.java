@@ -19,7 +19,7 @@ public class DisplayLevel {
     private void loadAllSprites() {
         BufferedImage img = LoadImages.GetImage(TERRAIN_IMG);
 //       System.out.println("Image Height: " + img.getHeight() + " | Image Width: " + img.getWidth());
-        levelImages = new BufferedImage[247];
+        levelImages = new BufferedImage[48];
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 12; j++) {
@@ -29,12 +29,12 @@ public class DisplayLevel {
         }
     }
 
-    public void drawLevel(Graphics g) {
+    public void drawLevel(Graphics g, int xLvlOffset) {
 
         for (int j = 0; j < Game.TILES_IN_HEIGHT; j++) {
-            for (int i = 0; i < Game.TILES_IN_WIDTH; i++) {
+            for (int i = 0; i < level1.getLevelImage()[0].length; i++) {
                 int index = level1.getSpriteIndex(i, j);
-                g.drawImage(levelImages[index], i * 32, j * 32, 32, 32, null);
+                g.drawImage(levelImages[index], i * 32 - xLvlOffset, j * 32, 32, 32, null);
             }
         }
 //        g.drawImage(levelImages[0], 10, 10, null);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
 public class AllEnemiesManager {
-//    private Playing playing;
+    //    private Playing playing;
     private Game game;
     private InGame inGame;
     private static final int NUMBER_OF_ANIMATIONS = 5;
@@ -31,12 +31,12 @@ public class AllEnemiesManager {
         }
     }
 
-    public void renderEnemies(Graphics g) {
+    public void renderEnemies(Graphics g, int xoffset) {
         for (Enemy enemy : listOfEnemies) {
             g.drawImage(allEnemyAnimations[enemy.getEnemyAction()][enemy.getAnimationIndex()],
-                    (int) enemy.getHitbox().x - HITBOX_OFFSET_X, (int) enemy.getHitbox().y - HITBOX_OFFSET_Y,
+                    (int) enemy.getHitbox().x - HITBOX_OFFSET_X - xoffset, (int) enemy.getHitbox().y - HITBOX_OFFSET_Y,
                     ENEMY_WIDTH, ENEMY_HEIGHT, null);
-            enemy.drawActorHitbox(g);
+            enemy.drawActorHitbox(g, xoffset);
         }
     }
 

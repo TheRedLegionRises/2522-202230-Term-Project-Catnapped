@@ -12,7 +12,7 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
  * @version 2022
  */
 public class Player extends Actor{
-    
+
     private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
@@ -30,7 +30,7 @@ public class Player extends Actor{
     public Player(float newXCoordinate, float newYCoordinate, int newHeight, int newWidth) {
         super(newXCoordinate, newYCoordinate, newHeight, newWidth);
         loadPlayerAnimations();
-        createHitbox(newXCoordinate, newYCoordinate, (int)32,(int) 32);
+        createHitbox(newXCoordinate, newYCoordinate, (int)32 ,(int) 32);
     }
 
     private void loadPlayerAnimations() {
@@ -92,11 +92,11 @@ public class Player extends Actor{
         updateAnimationThread();
     }
 
-    public void renderPlayer(Graphics g) {
-        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x - xDrawOffset),
+    public void renderPlayer(Graphics g, int xLvlOffset) {
+        g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x - xDrawOffset) - xLvlOffset,
                 (int) (actorHitbox.y),
                 width, height,null);
-        drawActorHitbox(g);
+        drawActorHitbox(g, xLvlOffset);
     }
 
 
@@ -137,7 +137,11 @@ public class Player extends Actor{
         if(jump) {
             playerJump();
         }
-
+        if (!playerInAir) {
+            if ((!moveLeft && !moveRight) || (moveRight && moveLeft))
+                return;
+        }
+        tempXSpeed = 0;
         if(moveLeft == moveRight && !playerInAir) {
             currentPlayerAction = IDLE;
             return;

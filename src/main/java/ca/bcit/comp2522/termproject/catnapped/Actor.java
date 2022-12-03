@@ -36,9 +36,9 @@ public abstract class Actor {
         return actorHitbox;
     }
 
-    public void drawActorHitbox(Graphics g) {
+    public void drawActorHitbox(Graphics g, int xoffset) {
         g.setColor(Color.PINK);
-        g.drawRect((int) actorHitbox.x, (int) actorHitbox.y, (int) actorHitbox.width, (int) actorHitbox.height);
+        g.drawRect((int) actorHitbox.x - xoffset, (int) actorHitbox.y, (int) actorHitbox.width, (int) actorHitbox.height);
     }
 
     public float getXCoordinate() {
