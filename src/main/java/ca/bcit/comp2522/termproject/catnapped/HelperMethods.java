@@ -7,11 +7,6 @@ import java.awt.*;
 public class HelperMethods {
     public static boolean collisionDetection(float xCoordinate, float yCoordinate, float width, float height,
                                              int[][] levelInfo) {
-//
-//        width /= 3;
-//        xCoordinate += 40;
-//        yCoordinate -= 32;
-
         if (!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
             if (!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
                 if (!isSolidTile(xCoordinate + width, yCoordinate, levelInfo)) {
