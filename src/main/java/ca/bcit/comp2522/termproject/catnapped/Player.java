@@ -16,7 +16,11 @@ public class Player extends Actor{
     private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage img;
     private int animationTick, animationIndex, animationSpeed = 15;
-    private float xDrawOffset = 20;
+    private static final int healthBarWidth = 66;
+    private static final int healthBarHeight = 34;
+    private static final int healthBarXCoordinate = 10;
+    private static final int healthBarYCoordinate = 10;
+    private static final float xDrawOffset = 20;
     private float yDrawOffset = 0;
     private boolean movementChanged, moveLeft, moveRight, jump = false;
     float tempXSpeed = 0, tempYSpeed = 0;
@@ -33,6 +37,9 @@ public class Player extends Actor{
         createHitbox(newXCoordinate, newYCoordinate, (int)32,(int) 32);
     }
 
+    //Health Bar UI
+
+
     private void loadPlayerAnimations() {
 
         String[] arrayOfPlayerAnimations = {"/images/King_Mewrthur_Idle.png", "/images/King_Mewrthur_Run.png",
@@ -43,36 +50,7 @@ public class Player extends Actor{
             img = LoadImages.GetImage(arrayOfPlayerAnimations[i]);
             BufferedImage[] currentAnimation;
 
-//            if (i == 2) {
-//                BufferedImage[] jumpAnimation = new BufferedImage[6];
-//                BufferedImage[] fallAnimation = new BufferedImage[6];
-//                for (int j = 0; j < 12; j++) {
-//                    int jumpAnimationIndex = 0, fallAnimationIndex = 0;
-//                    System.out.println("Value of j: " + j);
-//
-//                        if (j < 8) {
-//                            if (j != 4 && j != 6) {
-//                                jumpAnimation[jumpAnimationIndex++] = img.getSubimage(0, j * 16, img.getWidth(), 16);
-//                            }
-//                        } else {
-//                            if (j != 9 && j != 11) {
-//                                fallAnimation[fallAnimationIndex++] = img.getSubimage(0, j * 16, img.getWidth(), 16);
-//                            }
-//                        }
-//                }
-//                allAnimations[2] = jumpAnimation;
-//                allAnimations[6] = fallAnimation;
-//
-//            }
-//            else {
-//               currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
-//                for(int j = 0; j < currentAnimation.length; j++) {
-//                    currentAnimation[j] = img.getSubimage(0, j * 16, img.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
-//                }
-//                allAnimations[i] = currentAnimation;
-//
-//            }
-            currentAnimation = new BufferedImage[GetPlayerAttribute(i)]; // If 5 - get an error - care
+            currentAnimation = new BufferedImage[GetPlayerAttribute(i)];
 
             for(int j = 0; j < currentAnimation.length; j++) {
                 currentAnimation[j] = img.getSubimage(0, j * 16, img.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
