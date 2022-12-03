@@ -11,7 +11,7 @@ public class Enemy extends Actor{
     private boolean isEnemyInAir = false;
     private float fallSpeed = 0f;
     private float gravity = 0.04f;
-    private float walkSpeed = 1.0f;
+    private float walkSpeed = 0.5f;
     private int walkDir = LEFT;
     private float attackRange = Game.DEFAULT_TILE_SIZE;
     private float viewRange = 5 * attackRange;
@@ -22,8 +22,8 @@ public class Enemy extends Actor{
 
     }
 
-    public void updateEnemy(int[][] levelInfo) {
-        updateMovement(levelInfo);
+    public void updateEnemy(int[][] levelInfo, Player player) {
+        updateMovement(levelInfo, player);
         updateAnimationThread();
     }
 
@@ -48,31 +48,24 @@ public class Enemy extends Actor{
     }
 
     private void enemyPatrol(int[][] levelInfo) {
-        //If Enemy is Idle, set to Running
-        switch(enemyAction) {
-            case ENEMY_IDLE:
-                changeEnemyAction(ENEMY_RUNNING);
-                break;
-            case ENEMY_RUNNING:
-                float xSpeed = 0;
+        float xSpeed = 0;
 
-                //Sets direction
-                if (walkDir == LEFT) {
-                    xSpeed = -walkSpeed;
-                } else{
-                    xSpeed = walkSpeed;
-                }
-                //If Enemy has room to move and is on a floor tile, keep moving in that ddirection
-                if(collisionDetection(actorHitbox.x + xSpeed, actorHitbox.y - 1,
-                        actorHitbox.width, actorHitbox.height, levelInfo)) {
-                    if(IsFloor(actorHitbox, xSpeed, levelInfo)) {
-                        actorHitbox.x += xSpeed;
-                        break;
-                    }
-                }
-                changeWalkDir();
-                break;
+        //Sets direction
+        if (walkDir == LEFT) {
+            xSpeed = -walkSpeed;
+        } else{
+            xSpeed = walkSpeed;
         }
+        //If Enemy has room to move and is on a floor tile, keep moving in that direction
+        if(collisionDetection(actorHitbox.x + xSpeed, actorHitbox.y - 1,
+                actorHitbox.width, actorHitbox.height, levelInfo)) {
+            if(IsFloor(actorHitbox, xSpeed, levelInfo)) {
+                actorHitbox.x += xSpeed;
+                return;
+            }
+        }
+        changeWalkDir();
+
     }
 
     private void changeEnemyAction(int newEnemyAction) {
@@ -81,7 +74,7 @@ public class Enemy extends Actor{
         animationIndex = 0;
     }
 
-    private void updateMovement(int[][] levelInfo) {
+    private void updateMovement(int[][] levelInfo, Player player) {
         if (firstUpdate) {
             firstUpdate(levelInfo);
         }
@@ -89,7 +82,22 @@ public class Enemy extends Actor{
         if (isEnemyInAir) {
             enemyInAir(levelInfo);
         } else{
-            enemyPatrol(levelInfo);
+            switch(enemyAction) {
+                case ENEMY_IDLE:
+                    changeEnemyAction(ENEMY_RUNNING);
+                    break;
+                case ENEMY_RUNNING:
+                    if (seePlayer(levelInfo, player)){
+                        moveTowardsPlayer(player);
+//                        System.out.println("I see you");
+                    }
+                    if (isPlayerInAttackRange(player)) {
+                        changeEnemyAction(ENEMY_ATTACK);
+                    }
+
+                    enemyPatrol(levelInfo);
+                    break;
+            }
         }
     }
 
@@ -100,14 +108,25 @@ public class Enemy extends Actor{
             walkDir = LEFT;
         }
     }
+    private void moveTowardsPlayer(Player player) {
+        if(player.actorHitbox.x > this.actorHitbox.x) {
+            walkDir = RIGHT;
+        } else {
+            walkDir = LEFT;
+        }
+    }
 
     private boolean seePlayer(int[][] levelInfo, Player player) {
-        int playerYPosition = (int) player.getHitbox().y / Game.DEFAULT_TILE_SIZE;
-        int enemyYPosition = (int) y / Game.DEFAULT_TILE_SIZE;
+        int playerYPosition = (int) (player.getHitbox().y + player.height)/ Game.DEFAULT_TILE_SIZE;
+        int enemyYPosition = (int) (this.actorHitbox.y) / Game.DEFAULT_TILE_SIZE;
+        System.out.println("Player Y: " + playerYPosition);
+        System.out.println("Enemy Y: " + enemyYPosition);
 
         if (enemyYPosition == playerYPosition) {
+//            System.out.println("Within Range");
             if (isPlayerInViewRange(player)) {
-                if (ClearLineOfSight(levelInfo, actorHitbox, player.actorHitbox, enemyYPosition)) {
+//                System.out.println("I see you");
+                if (ClearLineOfSight(levelInfo, this.actorHitbox, player.actorHitbox, enemyYPosition)) {
                     return true;
                 }
 
@@ -117,8 +136,14 @@ public class Enemy extends Actor{
     }
 
     private boolean isPlayerInViewRange(Player player) {
-        int distanceBetweenPlayerAndEnemy = (int) Math.abs(player.actorHitbox.x - actorHitbox.x);
+        int distanceBetweenPlayerAndEnemy = (int) Math.abs(player.actorHitbox.x - this.actorHitbox.x) / 32;
+        System.out.println("Distance: " + distanceBetweenPlayerAndEnemy);
         return distanceBetweenPlayerAndEnemy <= viewRange;
+    }
+    
+    private boolean isPlayerInAttackRange(Player player) {
+        int distanceBetweenPlayerAndEnemy = (int) Math.abs(player.actorHitbox.x - actorHitbox.x);
+        return distanceBetweenPlayerAndEnemy <= attackRange;
     }
 
     private void updateAnimationThread() {
@@ -126,8 +151,12 @@ public class Enemy extends Actor{
         if(animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if(animationIndex >= GetEnemyAttribute(enemyAction))
+            if(animationIndex >= GetEnemyAttribute(enemyAction)) {
                 animationIndex = 0;
+                if (enemyAction == ENEMY_ATTACK) {
+                    enemyAction = ENEMY_IDLE;
+                }
+            }
         }
 
     }
