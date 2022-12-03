@@ -35,7 +35,7 @@ public class InGame extends State implements Statemethods{
     public void update() {
         if(!paused){
             level1.update();
-            enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage());
+            enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage(), player);
             player.updatePlayer();
         } else {
             pause.update();
