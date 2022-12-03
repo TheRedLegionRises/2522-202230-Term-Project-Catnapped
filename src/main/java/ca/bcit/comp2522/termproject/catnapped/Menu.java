@@ -8,12 +8,13 @@ import java.awt.image.BufferedImage;
 public class Menu extends State implements Statemethods{
 
     private MenuButtons[] buttons = new MenuButtons[3];
-    private BufferedImage backgroundImg;
+    private BufferedImage backgroundImg, backgroundBG;
     private int menuX, menuY, menuWidth, menuHeight;
     public Menu(Game game) {
         super(game);
         loadButtons();
         loadBackground();
+        backgroundBG = LoadImages.GetImage(LoadImages.MENU_BACKGROUND);
     }
     private void loadBackground() {
         backgroundImg = LoadImages.GetImage(LoadImages.MENU_BG);
@@ -38,7 +39,7 @@ public class Menu extends State implements Statemethods{
 
     @Override
     public void draw(Graphics g) {
-
+        g.drawImage(backgroundBG,0 , 0 , Game.GAME_WINDOW_WIDTH, Game.GAME_WINDOW_HEIGHT, null);
         g.drawImage(backgroundImg, menuX, menuY, menuWidth, menuHeight, null);
 
         for (MenuButtons mb : buttons)
