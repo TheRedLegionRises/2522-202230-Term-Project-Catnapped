@@ -14,8 +14,10 @@ public class Game implements Runnable {
     private DisplayLevel level1;
     private AllEnemiesManager enemyManager;
     private Player player;
-    
+
     public final static int DEFAULT_TILE_SIZE = 32;
+    public final static float SCALE = 2f;
+    public final static int TEST_SIZE = (int) (DEFAULT_TILE_SIZE * SCALE);
     public static final int TILES_IN_WIDTH = 26;
     public static final int TILES_IN_HEIGHT = 14;
     public static final int GAME_WINDOW_WIDTH = TILES_IN_WIDTH * DEFAULT_TILE_SIZE;
@@ -61,7 +63,7 @@ public class Game implements Runnable {
     public void update() {
         switch(Gamestate.state) {
             case MENU:
-                    menu.update();
+                menu.update();
                 break;
             case INGAME:
                 inGame.update();
@@ -82,7 +84,7 @@ public class Game implements Runnable {
 
         switch(Gamestate.state) {
             case MENU:
-            menu.draw(g);
+                menu.draw(g);
                 break;
             case INGAME:
                 inGame.draw(g);
