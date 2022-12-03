@@ -25,9 +25,9 @@ public class AllEnemiesManager {
         System.out.println("Size of crabs: " + listOfEnemies.size());
     }
 
-    public void updateEnemies(int[][] levelInfo) {
+    public void updateEnemies(int[][] levelInfo, Player player) {
         for (Enemy eachEnemy : listOfEnemies) {
-            eachEnemy.updateEnemy(levelInfo);
+            eachEnemy.updateEnemy(levelInfo, player);
         }
     }
 
