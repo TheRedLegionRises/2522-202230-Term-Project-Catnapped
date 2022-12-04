@@ -34,7 +34,7 @@ public class Game implements Runnable {
         inGame = new InGame(this);
         level1 = new DisplayLevel(this);
 //        enemyManager = new AllEnemiesManager();
-        player = new Player(100, 100, 32, 64);
+        player = new Player(100, 100, 32, 128, inGame);
         player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
 
     }
