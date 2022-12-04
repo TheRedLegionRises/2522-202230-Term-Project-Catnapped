@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -33,10 +34,25 @@ public class AllEnemiesManager {
 
     public void renderEnemies(Graphics g) {
         for (Enemy enemy : listOfEnemies) {
-            g.drawImage(allEnemyAnimations[enemy.getEnemyAction()][enemy.getAnimationIndex()],
-                    (int) enemy.getHitbox().x - HITBOX_OFFSET_X, (int) enemy.getHitbox().y - HITBOX_OFFSET_Y,
-                    ENEMY_WIDTH, ENEMY_HEIGHT, null);
-            enemy.drawActorHitbox(g);
+            if (enemy.isAlive()) {
+                Rectangle2D.Float currentEnemyAttackBox = enemy.getEnemyAttackBox();
+                g.drawImage(allEnemyAnimations[enemy.getEnemyAction()][enemy.getAnimationIndex()],
+                        (int) enemy.getHitbox().x - HITBOX_OFFSET_X + enemy.flipXDrawOffset(), (int) enemy.getHitbox().y - HITBOX_OFFSET_Y,
+                        ENEMY_WIDTH * enemy.flipWidth(), ENEMY_HEIGHT, null);
+                enemy.drawActorHitbox(g);
+                enemy.drawAttackBox(g);
+            }
+        }
+    }
+
+    public void checkPlayerHitsEnemy(Rectangle2D.Float playerAttackBox) {
+        for(Enemy eachEnemy : listOfEnemies) {
+            if(eachEnemy.isAlive()) {
+                if (playerAttackBox.intersects(eachEnemy.getHitbox())) {
+                    eachEnemy.getHitByPlayer();
+                    return;
+                }
+            }
         }
     }
 
@@ -61,4 +77,9 @@ public class AllEnemiesManager {
         }
     }
 
+    public void resetAllEnemies() {
+        for(Enemy eachEnemy : listOfEnemies) {
+            eachEnemy.reset();
+        }
+    }
 }
