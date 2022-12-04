@@ -60,8 +60,9 @@ public class Constants {
                     return 1;
 
             }
+        }
 
-        }    }
+    }
 
     public static class PlayerAttributes {
 
