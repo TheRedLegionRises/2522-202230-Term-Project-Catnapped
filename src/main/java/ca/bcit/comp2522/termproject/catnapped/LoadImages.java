@@ -21,6 +21,7 @@ public class LoadImages {
     public static final String UTIL_BUTTONS = "/images/util_buttons.png";
     public static final String VOLUME_BUTTONS = "/images/volume_buttons.png";
     public static final String LIFE_BAR = "/images/Live_Bar.png";
+    public static final String HEART = "/images/Big_Heart_Idle.png";
 
     public static BufferedImage GetImage(String filePath) {
         BufferedImage img = null;
