@@ -98,7 +98,7 @@ public class HelperMethods {
 
         int objectXTile = (int) objectHitbox.x / Game.DEFAULT_TILE_SIZE;
         int playerXTile = (int) playerHitbox.x / Game.DEFAULT_TILE_SIZE;
-        System.out.println("Checking LOS");
+//        System.out.println("Checking LOS");
 
         if (objectXTile > playerXTile) {
             return noTilesInBetween(levelInfo, playerXTile, objectXTile, objectYPosition);
