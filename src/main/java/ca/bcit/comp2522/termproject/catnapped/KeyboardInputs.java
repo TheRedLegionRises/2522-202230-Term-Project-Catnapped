@@ -3,6 +3,11 @@ package ca.bcit.comp2522.termproject.catnapped;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * KeyboardInputs Class. For keyboard Inputs.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel gamePanel;

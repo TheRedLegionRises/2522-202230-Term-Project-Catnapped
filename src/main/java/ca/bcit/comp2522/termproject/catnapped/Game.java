@@ -4,11 +4,10 @@ import java.awt.*;
 
 /**
  * Game class. Implements Runnable class.
- * @author jerry and bryan
+ * @author Jerry and Bryan
  * @version 2022
  */
 public class Game implements Runnable {
-
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;

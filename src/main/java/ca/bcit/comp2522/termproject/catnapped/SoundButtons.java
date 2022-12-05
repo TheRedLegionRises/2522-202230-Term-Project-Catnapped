@@ -5,6 +5,11 @@ import java.awt.image.BufferedImage;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.PauseButtons.SOUND_BUTTON_SIZE;
 
+/**
+ * SoundButtons Class. No sound currently working - WOIP
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class SoundButtons extends PauseButtons {
     private boolean muted;
     private int rowIndex, colIndex;
@@ -48,9 +53,9 @@ public class SoundButtons extends PauseButtons {
         g.drawImage(soundImgs[rowIndex][colIndex], x, y, width, height, null);
     }
 
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
+//    public boolean isMouseOver() {
+//        return mouseOver;
+//    }
 
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;

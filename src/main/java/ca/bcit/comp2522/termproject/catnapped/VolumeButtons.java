@@ -5,6 +5,11 @@ import java.awt.image.BufferedImage;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.VolumeButtons.*;
 
+/**
+ * VolumeButtons class. Volume buttons to adjust volume.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class VolumeButtons extends PauseButtons {
 
     private int index = 0;
@@ -39,7 +44,6 @@ public class VolumeButtons extends PauseButtons {
             index = 1;
         if (mousePressed)
             index = 2;
-
     }
 
     public void draw(Graphics g) {
@@ -65,18 +69,16 @@ public class VolumeButtons extends PauseButtons {
         mousePressed = false;
     }
 
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
+//    public boolean isMouseOver() {
+//        return mouseOver;
+//    }
 
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
     }
-
     public boolean isMousePressed() {
         return mousePressed;
     }
-
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
     }

@@ -2,7 +2,7 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 /**
  * A LevelInfo Class. Contains all the information about a level.
- * @author jerry and bryan
+ * @author Jerry and Bryan
  * @version 2022
  */
 import java.awt.image.BufferedImage;

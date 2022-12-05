@@ -3,13 +3,13 @@ package ca.bcit.comp2522.termproject.catnapped;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstant.*;
 import static ca.bcit.comp2522.termproject.catnapped.Constants.Directions.*;
 import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
 
 /**
  * An enemy class. Extends Actor class.
- * @author jerry and bryan
+ * @author Jerry and Bryan
  * @version 2022
  */
 public class Enemy extends Actor{
@@ -41,7 +41,6 @@ public class Enemy extends Actor{
         super(newXCoordinate, newYCoordinate, newHeight, newWidth);
         createHitbox(newXCoordinate, newYCoordinate, 20, 20);
         createAttackHitbox();
-
     }
 
     /**
@@ -161,7 +160,6 @@ public class Enemy extends Actor{
      * @param levelInfo a 2D integer array
      * @param player a Player object
      */
-
     private void updateMovement(int[][] levelInfo, Player player) {
         if (firstUpdate) {
             firstUpdate(levelInfo);
@@ -337,7 +335,6 @@ public class Enemy extends Actor{
             return 0;
         }
     }
-
 
     /**
      * Decrease enemy health if they were hit by player.

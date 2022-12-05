@@ -4,14 +4,14 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * HelperMethods class. Contains helper methods used in our program.
- * @author jerry and bryan
+ * @author Jerry and Bryan
  * @version 2022
  */
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstant.*;
 
 public class HelperMethods {
     /**

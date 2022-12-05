@@ -4,11 +4,10 @@ import javax.swing.*;
 
 /**
  * GameWindow class. Displays the inside of the game inside the frame.
- * @author jerry and bryan
+ * @author Jerry and Bryan
  * @version 2022
  */
 public class GameWindow {
-
     private final JFrame jframe;
 
     /**

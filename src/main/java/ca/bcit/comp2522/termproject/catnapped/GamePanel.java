@@ -8,6 +8,7 @@ import static ca.bcit.comp2522.termproject.catnapped.Game.GAME_WINDOW_WIDTH;
 
 /**
  * A GamePanel class. Extends JPanel class. Creates a new frame for our game.
+ * @author Jerry and Bryan
  */
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;

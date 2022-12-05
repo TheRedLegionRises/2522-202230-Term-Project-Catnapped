@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
+import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstant.*;
 
 /**
  * AllEnemiesManager Class. Used to manage all enemies in the level.
@@ -13,9 +13,6 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
  * @version 2022
  */
 public class AllEnemiesManager {
-//    private Playing playing;
-//    private Game game;
-
     private InGame inGame;
     private static final int NUMBER_OF_ANIMATIONS = 5;
     private BufferedImage[][] allEnemyAnimations;
@@ -58,7 +55,6 @@ public class AllEnemiesManager {
      * Displays all enemies on the screen while they are alive.
      * @param g a Graphics object
      */
-
     public void renderEnemies(Graphics g, int xoffset) {
         for (Enemy enemy : listOfEnemies) {
             if (enemy.isAlive()) {

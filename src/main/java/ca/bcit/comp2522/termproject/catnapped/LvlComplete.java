@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.UtilButtons.UTIL_BUTTON_SIZE;
 
+/**
+ * LvlComplete helper class. Level Complete feature when completing the level.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class LvlComplete {
     private InGame ingame;
     private UtilButtons menu, next;

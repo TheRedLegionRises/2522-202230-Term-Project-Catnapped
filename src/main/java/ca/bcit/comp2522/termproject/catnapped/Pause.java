@@ -8,6 +8,12 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.PauseButto
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.UtilButtons.*;
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.VolumeButtons.*;
 
+/**
+ * Pause Class. To display pause menu and pause game.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
+
 public class Pause {
 
     private InGame inGame;

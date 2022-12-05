@@ -2,6 +2,11 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 import java.awt.Rectangle;
 
+/**
+ * PauseButtons Class. To give/show pause buttons functionality.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class PauseButtons {
     protected Rectangle boundaries;
     protected int x, y, width, height;

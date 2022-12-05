@@ -1,13 +1,11 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
-//import javafx.scene.input.KeyEvent;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**
  * GameOverScreen class.
- * @author jerry and bryan
+ * @author Jerry and Bryan
  * @version 2022
  */
 public class GameOverScreen {

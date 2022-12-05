@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.Buttons.*;
 
+/**
+ * MenuButtons Class. To give buttons function.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
+
 public class MenuButtons {
     private Gamestate state;
     private Rectangle boundaries;

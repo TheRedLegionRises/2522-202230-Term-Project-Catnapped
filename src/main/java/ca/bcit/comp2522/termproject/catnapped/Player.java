@@ -34,7 +34,6 @@ public class Player extends Actor {
     private static final int drawHeartWidth = heartWidth * HEALTH_SYSTEM_SCALE;
     private static final int heartXCoordinate = 30;
     private static final int heartYCoordinate = healthBarHeight / 2 - 4;
-
     //Attack Varibles
     private Rectangle2D.Float attackBox;
     private int flipImage = 1;

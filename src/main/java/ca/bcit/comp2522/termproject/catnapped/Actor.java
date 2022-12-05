@@ -1,6 +1,5 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 /**

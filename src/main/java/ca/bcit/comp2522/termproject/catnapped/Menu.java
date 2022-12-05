@@ -5,6 +5,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+/**
+ * Menu Class. Controls all menu features.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
+
 public class Menu extends State implements Statemethods{
 
     private MenuButtons[] buttons = new MenuButtons[3];

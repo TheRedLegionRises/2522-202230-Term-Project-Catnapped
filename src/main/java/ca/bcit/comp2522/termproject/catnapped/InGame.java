@@ -4,6 +4,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * Ingame Class. Runs our game engine.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class InGame extends State implements Statemethods{
 
     private Pause pause;

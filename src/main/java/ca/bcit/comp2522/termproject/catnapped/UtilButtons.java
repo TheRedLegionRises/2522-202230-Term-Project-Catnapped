@@ -5,6 +5,11 @@ import java.awt.image.BufferedImage;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.UtilButtons.UTIL_BUTTON_SIZE;
 
+/**
+ * UtilButtons class. Utility buttons for muting, restarting levels, back to home screen.
+ * @author Jerry and Bryan
+ * @version 2022
+ */
 public class UtilButtons extends PauseButtons {
 
     private int rowIndex, index;
