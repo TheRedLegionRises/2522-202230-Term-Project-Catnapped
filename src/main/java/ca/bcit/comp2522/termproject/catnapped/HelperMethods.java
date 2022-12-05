@@ -3,6 +3,10 @@ package ca.bcit.comp2522.termproject.catnapped;
 import java.awt.geom.Rectangle2D;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
 public class HelperMethods {
     public static boolean collisionDetection(float xCoordinate, float yCoordinate, float width, float height,
@@ -31,13 +35,16 @@ public class HelperMethods {
         float xIndex = x / Game.DEFAULT_TILE_SIZE;
         float yIndex = y / Game.DEFAULT_TILE_SIZE;
 
-        int value = levelInfo[(int) yIndex][(int) xIndex];
+        return IsTileSolid((int) xIndex, (int) yIndex, levelInfo);
 
-        if (value >= 48 || value < 0 || value != 11) {
+    }
+
+    public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
+        int value = lvlData[yTile][xTile];
+
+        if (value >= 48 || value < 0 || value != 11)
             return true;
-        }
         return false;
-
     }
 
     public static float GetActorNextToWall(Rectangle2D.Float playerHitbox, float xSpeed) {
@@ -79,6 +86,13 @@ public class HelperMethods {
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelInfo) {
 //        System.out.println("Hitbox Height: " + hitbox.height);
         return isSolidTile(hitbox.x + hitbox.width / 2 + xSpeed, hitbox.y + hitbox.height + 1, levelInfo);
+
+//        //        System.out.println("Hitbox Height: " + hitbox.height);
+//        if(xSpeed > 0)
+//            return isSolidTile(hitbox.x + hitbox.width + xSpeed / 2, hitbox.y + hitbox.height + 1, levelInfo);
+//        else
+//            return isSolidTile(hitbox.x + xSpeed / 2, hitbox.y + hitbox.height + 1, levelInfo);
+//    }
     }
 
     private static boolean noTilesInBetween(int[][] levelInfo, int startIndex, int endIndex, int yPosition) {
@@ -105,4 +119,37 @@ public class HelperMethods {
         }
 
     }
+
+    public static int[][] GetLevelData(BufferedImage img) {
+
+        int[][] levelImages = new int[img.getHeight()][img.getWidth()];
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getRed();
+                if (value >= 48) {
+                    value = 0;
+                }
+                levelImages[j][i] = value;
+            }
+        }
+        return levelImages;
+    }
+
+    public static ArrayList<Enemy> GetEnemies(BufferedImage img) {
+        ArrayList<Enemy> enemyList = new ArrayList<>();
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getGreen();
+
+                if (value == ENEMY_IDENTIFIER) {
+                    enemyList.add(new Enemy(i * Game.DEFAULT_TILE_SIZE, j * Game.DEFAULT_TILE_SIZE, ENEMY_HEIGHT, ENEMY_WIDTH));
+                }
+            }
+        }
+        return enemyList;
+
+    }
+
 }

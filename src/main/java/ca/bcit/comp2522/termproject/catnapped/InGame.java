@@ -7,32 +7,51 @@ import java.awt.event.MouseEvent;
 public class InGame extends State implements Statemethods{
 
     private Pause pause;
-    private DisplayLevel level1;
+    private DisplayLevel displayLevel;
     private Player player;
-
     private AllEnemiesManager enemyManager;
     private boolean paused = false;
     private boolean gameOver = false;
     private GameOverScreen gameOverScreen;
+    private LvlComplete LvlComplete;
     private int xLvlOffset;
     private int leftBorder = (int) (0.2 * Game.GAME_WINDOW_WIDTH);
     private int rightBorder = (int) (0.9 * Game.GAME_WINDOW_WIDTH);
-    private int lvlTilesWide = LoadImages.GetLevelImages()[0].length;
-    private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-    private int maxLvlOffsetX = maxTilesOffset * Game.TEST_SIZE;
-
+//    private int lvlTilesWide = LoadImages.GetLevelImages()[0].length;
+//    private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+//    private int maxLvlOffsetX = maxTilesOffset * Game.TEST_SIZE;
+    private int maxLvlOffsetX;
+    private boolean lvlcompleted;
     public InGame(Game game) {
         super(game);
         gameInfo();
+
+        calcOffSet();
+        LoadStartLevel();
+    }
+
+    public void LoadNextLevel() {
+        resetAll();
+        displayLevel.loadNextLevel();
+    }
+    private void LoadStartLevel() {
+        enemyManager.LoadEnemies(displayLevel.getCurrentLevel());
+    }
+
+    private void calcOffSet() {
+        maxLvlOffsetX = displayLevel.getCurrentLevel().getLvlOffset();
     }
 
     private void gameInfo() {
-        level1 = new DisplayLevel(game);
+        displayLevel = new DisplayLevel(game);
         enemyManager = new AllEnemiesManager(this);
+
         player = new Player(100, 100, 32, 64, this);
-        player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
+        player.loadLevelInfo(displayLevel.getCurrentLevel().getLevelImage());
+
         pause = new Pause(this);
         gameOverScreen = new GameOverScreen(this);
+        LvlComplete = new LvlComplete(this);
     }
 
     public Player getPlayer() {
@@ -42,14 +61,17 @@ public class InGame extends State implements Statemethods{
 
     @Override
     public void update() {
-        if(!paused && !gameOver){
-            level1.update();
-            enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage(), player);
+        if(paused) {
+            pause.update();
+        }
+        else if (lvlcompleted) {
+            LvlComplete.update();
+        }
+        else if(!gameOver){
+            displayLevel.update();
+            enemyManager.updateEnemies(displayLevel.getCurrentLevel().getLevelImage(), player);
             player.updatePlayer();
             checkCloseToBorder();
-
-        } else {
-            pause.update();
         }
     }
 
@@ -71,7 +93,7 @@ public class InGame extends State implements Statemethods{
 
     @Override
     public void draw(Graphics g) {
-        level1.drawLevel(g, xLvlOffset);
+        displayLevel.drawLevel(g, xLvlOffset);
         player.renderPlayer(g, xLvlOffset);
         enemyManager.renderEnemies(g, xLvlOffset);
         if(paused) {
@@ -80,6 +102,9 @@ public class InGame extends State implements Statemethods{
             pause.draw(g);
         }else if(gameOver) {
             gameOverScreen.drawOverlay(g);
+        }
+        else if (lvlcompleted) {
+            LvlComplete.draw(g);
         }
     }
 
@@ -138,6 +163,7 @@ public class InGame extends State implements Statemethods{
         //Reset everything after death
         gameOver = false;
         paused = false;
+        lvlcompleted = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
     }
@@ -158,29 +184,49 @@ public class InGame extends State implements Statemethods{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (!gameOver)
+        if (!gameOver) {
             if (paused)
                 pause.mousePressed(e);
+            else if (lvlcompleted)
+                LvlComplete.mousePressed(e);
+        }
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(!gameOver)
+        if (!gameOver) {
             if (paused)
                 pause.mouseReleased(e);
+            else if (lvlcompleted)
+                LvlComplete.mouseReleased(e);
+        }
+
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(!gameOver)
+        if (!gameOver) {
             if (paused)
                 pause.mouseMoved(e);
-
+            else if (lvlcompleted)
+                LvlComplete.mouseMoved(e);
+        }
     }
 
     public void unpauseGame() {
         paused = false;
     }
 
+    public AllEnemiesManager getEnemyManager() {
+        return enemyManager;
+    }
+    public void setMaxLvlOffsetX(int lvlOffset) {
+        this.maxLvlOffsetX = lvlOffset;
+    }
+
+    public void setLevelComplete(boolean lvlcompleted) {
+        this.lvlcompleted = lvlcompleted;
+    }
 
 }

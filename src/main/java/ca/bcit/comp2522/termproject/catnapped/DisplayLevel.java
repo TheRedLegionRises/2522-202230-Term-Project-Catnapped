@@ -2,18 +2,41 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static ca.bcit.comp2522.termproject.catnapped.LoadImages.TERRAIN_IMG;
 
 public class DisplayLevel {
     private Game game;
     private BufferedImage[] levelImages;
-    private LevelInfo level1;
+    private ArrayList<LevelInfo> levels;
+    private int lvlIndex = 0;
 
     public DisplayLevel(Game game) {
         this.game = game;
         loadAllSprites();
-        level1 = new LevelInfo(LoadImages.GetLevelImages());
+        levels = new ArrayList<>();
+        buildAllLevels();
+    }
+
+    public void loadNextLevel() {
+        lvlIndex++;
+        if (lvlIndex >= levels.size()) {
+            lvlIndex = 0;
+            System.out.println("Null");
+            Gamestate.state = Gamestate.MENU;
+        }
+
+        LevelInfo newLevel = levels.get(lvlIndex);
+        game.getInGame().getEnemyManager().LoadEnemies(newLevel);
+        game.getInGame().getPlayer().loadLevelInfo(newLevel.getLevelImage());
+        game.getInGame().setMaxLvlOffsetX(newLevel.getLvlOffset());
+    }
+
+    private void buildAllLevels() {
+        BufferedImage[] allLevels = LoadImages.GetAllLevels();
+        for(BufferedImage img : allLevels)
+            levels.add(new LevelInfo(img));
     }
 
     private void loadAllSprites() {
@@ -32,8 +55,8 @@ public class DisplayLevel {
     public void drawLevel(Graphics g, int xLvlOffset) {
 
         for (int j = 0; j < Game.TILES_IN_HEIGHT; j++) {
-            for (int i = 0; i < level1.getLevelImage()[0].length; i++) {
-                int index = level1.getSpriteIndex(i, j);
+            for (int i = 0; i < levels.get(lvlIndex).getLevelImage()[0].length; i++) {
+                int index = levels.get(lvlIndex).getSpriteIndex(i, j);
                 g.drawImage(levelImages[index], i * 32 - xLvlOffset, j * 32, 32, 32, null);
             }
         }
@@ -44,6 +67,11 @@ public class DisplayLevel {
     }
 
     public LevelInfo getCurrentLevel() {
-        return level1;
+        return levels.get(lvlIndex);
+    }
+
+    public int getAmountOfLevels() {
+        return levels.size();
+
     }
 }

@@ -132,7 +132,10 @@ public class Pause {
             }
         } else if (clickable(e, replayButton)) {
             if (replayButton.isMousePressed())
-                System.out.println("No function, but replays level"); //WOIP
+            {
+                inGame.resetAll();
+                inGame.unpauseGame();
+            }
         } else if (clickable(e, unpauseButton)) {
             if (unpauseButton.isMousePressed())
                 inGame.unpauseGame();

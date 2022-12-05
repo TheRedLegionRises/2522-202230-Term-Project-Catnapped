@@ -16,18 +16,21 @@ public class AllEnemiesManager {
     public AllEnemiesManager(InGame inGame) {
         this.inGame = inGame;
         loadEnemyImages();
-        addEnemies();
     }
 
-    private void addEnemies() {
-        listOfEnemies = LoadImages.GetEnemies();
-        System.out.println("Size of crabs: " + listOfEnemies.size());
+    public void LoadEnemies(LevelInfo level) {
+        listOfEnemies = level.getEnemys();
     }
 
     public void updateEnemies(int[][] levelInfo, Player player) {
-        for (Enemy eachEnemy : listOfEnemies) {
-            eachEnemy.updateEnemy(levelInfo, player);
-        }
+        boolean isActive = false;
+        for (Enemy eachEnemy : listOfEnemies)
+            if (eachEnemy.isAlive()) {
+                eachEnemy.updateEnemy(levelInfo, player);
+                isActive = true;
+            }
+        if(!isActive)
+            inGame.setLevelComplete(true);
     }
 
     public void renderEnemies(Graphics g, int xoffset) {

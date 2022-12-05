@@ -3,15 +3,18 @@ package ca.bcit.comp2522.termproject.catnapped;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
 public class LoadImages {
     public static final String TERRAIN_IMG = "/images/Terrain.png";
-    public static final String TEST_LEVEL_LONGER = "/images/level_one_data_long.png";
+    public static final String TEST_LEVEL_LONGER = "/levels/1.png";
     public static final String MENU_BUTTONS = "/images/menu_buttons.png";
     public static final String MENU_BG = "/images/menu_background.png";
     public static final String PAUSE_MENU = "/images/pause_menu.png";
@@ -21,6 +24,10 @@ public class LoadImages {
     public static final String MENU_BACKGROUND = "/images/background_image.jpg";
     public static final String LIFE_BAR = "/images/Live_Bar.png";
     public static final String HEART = "/images/Big_Heart_Idle.png";
+
+    public static final String COMPLETE_OVERLAY = "/images/completed_menu.png";
+    public static final String LEVEL_2 = "/levels/2.png";
+
 
     public static BufferedImage GetImage(String filePath) {
         BufferedImage img = null;
@@ -42,6 +49,35 @@ public class LoadImages {
         return img;
     }
 
+    public static BufferedImage[] GetAllLevels() {
+        URL url = LoadImages.class.getResource("/levels");
+        File file = null;
+        try {
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        File[] files = file.listFiles();
+        File[] filesSort = new File[files.length];
+
+        for (int i = 0; i < filesSort.length; i++)
+            for (int j = 0; j < files.length; j++) {
+                if (files[j].getName().equals((i + 1) + ".png"))
+                    filesSort[i] = files[j];
+
+            }
+        BufferedImage[] imgs = new BufferedImage[filesSort.length];
+
+        for (int i = 0; i < imgs.length; i++)
+            try {
+                imgs[i] = ImageIO.read(filesSort[i]);
+            } catch (IOException e) {
+                e.printStackTrace();
+        }
+        return imgs;
+    }
+
     public static ArrayList<Enemy> GetEnemies() {
         BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
         ArrayList<Enemy> enemyList = new ArrayList<>();
@@ -60,15 +96,14 @@ public class LoadImages {
 
     }
 
-    public static int[][] GetLevelImages() {
+    public static int[][] GetLevelImages(BufferedImage img) {
+        
+        int[][] levelImages = new int[img.getHeight()][img.getWidth()];
 
-        BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
-        int[][] levelImages = new int[levelImg.getHeight()][levelImg.getWidth()];
-
-        for (int j = 0; j < levelImg.getHeight(); j++) {
+        for (int j = 0; j < img.getHeight(); j++) {
 //            System.out.print("J: " + j);
-            for (int i = 0; i < levelImg.getWidth(); i++) {
-                Color color = new Color(levelImg.getRGB(i, j));
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
                 int value = color.getRed();
 
                 if (value >= 48) {
