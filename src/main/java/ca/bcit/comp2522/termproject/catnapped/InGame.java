@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
  * @version 2022
  */
 public class InGame extends State implements Statemethods{
-
     private Pause pause;
     private DisplayLevel displayLevel;
     private Player player;
@@ -22,11 +21,12 @@ public class InGame extends State implements Statemethods{
     private int xLvlOffset;
     private int leftBorder = (int) (0.2 * Game.GAME_WINDOW_WIDTH);
     private int rightBorder = (int) (0.9 * Game.GAME_WINDOW_WIDTH);
-//    private int lvlTilesWide = LoadImages.GetLevelImages()[0].length;
-//    private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-//    private int maxLvlOffsetX = maxTilesOffset * Game.TEST_SIZE;
     private int maxLvlOffsetX;
     private boolean lvlcompleted;
+
+    /**
+     * InGame Constructor
+     */
     public InGame(Game game) {
         super(game);
         gameInfo();
@@ -34,16 +34,24 @@ public class InGame extends State implements Statemethods{
         calcOffSet();
         LoadStartLevel();
     }
-
+    /**
+     * Loads next level
+     */
     public void LoadNextLevel() {
         resetAll();
         displayLevel.loadNextLevel();
         player.setSpawn(displayLevel.getCurrentLevel().getPlayerSpawn());
     }
+
+    /**
+     * Loads level one
+     */
     private void LoadStartLevel() {
         enemyManager.LoadEnemies(displayLevel.getCurrentLevel());
     }
-
+    /**
+     * Calculates the OffSet for scrolling - WOIP
+     */
     private void calcOffSet() {
         maxLvlOffsetX = displayLevel.getCurrentLevel().getLvlOffset();
     }
@@ -81,7 +89,9 @@ public class InGame extends State implements Statemethods{
             checkCloseToBorder();
         }
     }
-
+    /**
+     * Checks if player is close to a border of game window - WOIP.
+     */
     private void checkCloseToBorder() {
         int playerX = (int) player.getHitbox().x;
         int diff = playerX - xLvlOffset;
@@ -165,7 +175,7 @@ public class InGame extends State implements Statemethods{
         }
 
     }
-
+// Reset booleans and values in methods and classes.
     public void resetAll() {
         //Reset everything after death
         gameOver = false;
@@ -220,7 +230,7 @@ public class InGame extends State implements Statemethods{
                 LvlComplete.mouseMoved(e);
         }
     }
-
+// Unpauses game
     public void unpauseGame() {
         paused = false;
     }

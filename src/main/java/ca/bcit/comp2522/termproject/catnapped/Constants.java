@@ -26,7 +26,6 @@ public class Constants {
             public static final int VOLUME_BUTTON_WIDTH = 28;
             public static final int VOLUME_BUTTON_HEIGHT = 44;
             public static final int SLIDER_WIDTH = 215;
-
         }
     }
 
@@ -41,10 +40,10 @@ public class Constants {
         public static final int HITBOX_OFFSET_X = 20;
         public static final int HITBOX_OFFSET_Y  = 24;
         public static final int ENEMY_ANIMATION_WIDTH = 34;
-        public static final int ENEMY_ANIMATION_HEIGHT = 28;
+//        public static final int ENEMY_ANIMATION_HEIGHT = 28;
         public static final int ENEMY_IDENTIFIER = 0;
 
-        public static final int HITBOX_DRAW_OFFSET = 0;
+//        public static final int HITBOX_DRAW_OFFSET = 0;
         public static int GetEnemyAttribute(int enemy_action) {
 
             switch (enemy_action) {
@@ -74,8 +73,6 @@ public class Constants {
         public static final int TAKE_DAMAGE = 3;
         public static final int ATTACK = 4;
         public static final int DEATH = 5;
-
-
         public static int GetPlayerAttribute(int player_action) {
 
             switch (player_action) {
@@ -93,11 +90,8 @@ public class Constants {
                     return 5;
                 default:
                     return 1;
-
             }
-
         }
-
     }
 
     public static class Directions {

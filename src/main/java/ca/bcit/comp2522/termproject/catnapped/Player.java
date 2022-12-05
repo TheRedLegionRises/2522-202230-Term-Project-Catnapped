@@ -13,7 +13,6 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
  * @version 2022
  */
 public class Player extends Actor {
-
     private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage animationImage, healthBarImage, heartImage;
     private int heartAnimationLength = 8;
@@ -25,7 +24,6 @@ public class Player extends Actor {
     private static final int healthBarHeight = 34 * HEALTH_SYSTEM_SCALE;
     private static final int healthBarXCoordinate = 10;
     private static final int healthBarYCoordinate = 10;
-
     private static final int maxHealth = 3;
     private static int currentHealth = maxHealth;
     private static final int heartHeight = 14;
@@ -236,10 +234,10 @@ public class Player extends Actor {
 
     }
 
-    private void resetAnimation() {
-        animationTick = 0;
-        animationIndex = 0;
-    }
+//    private void resetAnimation() {
+//        animationTick = 0;
+//        animationIndex = 0;
+//    }
 
     /**
      * If player jumps, set playerInAir to true and current airSpeed to jumpSpeed

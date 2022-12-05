@@ -15,13 +15,17 @@ public class UtilButtons extends PauseButtons {
     private int rowIndex, index;
     private BufferedImage[] imgs;
     private boolean mouseOver, mousePressed;
-
+    /**
+     * Utilbuttons Constructor
+     */
     public UtilButtons(int x, int y, int width, int height, int rowIndex) {
         super(x, y, width, height);
         this.rowIndex = rowIndex;
         loadImgs();
     }
-
+    /**
+     * Load utility buttons in pause menu
+     */
     private void loadImgs() {
         BufferedImage temp = LoadImages.GetImage(LoadImages.UTIL_BUTTONS);
         imgs = new BufferedImage[3];
@@ -36,7 +40,6 @@ public class UtilButtons extends PauseButtons {
             index = 1;
         if (mousePressed)
             index = 2;
-
     }
 
     public void draw(Graphics g) {
@@ -48,9 +51,9 @@ public class UtilButtons extends PauseButtons {
         mousePressed = false;
     }
 
-    public boolean isMouseOver() {
-        return mouseOver;
-    }
+//    public boolean isMouseOver() {
+//        return mouseOver;
+//    }
 
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;

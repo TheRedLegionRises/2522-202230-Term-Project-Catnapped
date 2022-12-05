@@ -11,7 +11,6 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.Buttons.*;
  * @author Jerry and Bryan
  * @version 2022
  */
-
 public class MenuButtons {
     private Gamestate state;
     private Rectangle boundaries;
@@ -19,8 +18,13 @@ public class MenuButtons {
     private boolean mouseOver, mousePressed;
     private int xOffsetCenter = BUTTON_WIDTH / 2;
     private int xPosition, yPosition, rowIndex, order;
-
-
+    /**
+     * MenuButtons constructor
+     @param xPos x position of Menu buttons
+     @param yPos y position of Menu buttons
+     @param rowIndex index of which button
+     @param state current state of game
+     */
     public MenuButtons(int xPos, int yPos, int rowIndex, Gamestate state) {
         this.xPosition = xPos;
         this.yPosition = yPos;
@@ -46,7 +50,9 @@ public class MenuButtons {
         boundaries = new Rectangle(xPosition - xOffsetCenter, yPosition, BUTTON_WIDTH, BUTTON_HEIGHT);
 
     }
-
+    /**
+     * Loads buttons of menu
+     */
     private void loadImgs() {
         imgs = new BufferedImage[3];
         BufferedImage temp = LoadImages.GetImage(LoadImages.MENU_BUTTONS);

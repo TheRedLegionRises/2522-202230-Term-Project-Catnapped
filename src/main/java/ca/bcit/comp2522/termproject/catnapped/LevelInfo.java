@@ -24,10 +24,14 @@ public class LevelInfo {
      * Constructor for our LevelInfo class
      * @param arrayOfLevelImages a 2D integer array
      */
-    public LevelInfo(int[][] arrayOfLevelImages) {
-        this.levelImage = arrayOfLevelImages;
-    }
+//    public LevelInfo(int[][] arrayOfLevelImages) {
+//        this.levelImage = arrayOfLevelImages;
+//    }
 
+    /**
+     * Constructor for our LevelInfo class
+     * @param img a 2D integer array
+     */
     public LevelInfo(BufferedImage img) {
         this.img = img;
         createLevelData();
@@ -35,11 +39,16 @@ public class LevelInfo {
         calcLvlOffsets();
         calcPlayerSpawn();
     }
-
+    /**
+     * Calculates the player spawn from img
+     */
     private void calcPlayerSpawn() {
         PlayerSpawn = GetPlayerSpawn(img);
     }
 
+    /**
+     * Calculates the offset for scrolling - WOIP
+     */
     private void calcLvlOffsets() {
         lvlTilesWide = img.getWidth();
         maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
@@ -47,13 +56,14 @@ public class LevelInfo {
     }
 
     /**
-     * Returns the sprite stored in a specific position
-     * @return an integer
+     * Gets level data
      */
     private void createLevelData() {
         levelImage = GetLevelData(img);
     }
-
+    /**
+     * Renders enemies for levels
+     */
     private void createEnemies() {
         enemys = GetEnemies(img);
     }

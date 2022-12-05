@@ -54,11 +54,11 @@ public class Enemy extends Actor{
      * Draws the hitbox for our enemy (Used for testing purposes)
      * @param g a Graphics object
      */
-    public void drawAttackBox(Graphics g) {
-        g.setColor(Color.red);
-        g.drawRect((int) enemyAttackBox.x, (int) enemyAttackBox.y,
-                (int) enemyAttackBox.width, (int) enemyAttackBox.height);
-    }
+//    public void drawAttackBox(Graphics g) {
+//        g.setColor(Color.red);
+//        g.drawRect((int) enemyAttackBox.x, (int) enemyAttackBox.y,
+//                (int) enemyAttackBox.width, (int) enemyAttackBox.height);
+//    }
 
 
     /**

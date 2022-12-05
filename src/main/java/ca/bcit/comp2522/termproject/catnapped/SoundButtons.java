@@ -15,13 +15,13 @@ public class SoundButtons extends PauseButtons {
     private int rowIndex, colIndex;
     private BufferedImage[][] soundImgs;
     private boolean mouseOver, mousePressed;
-
     public SoundButtons(int x, int y, int width, int height) {
         super(x, y, width, height);
-
         loadSoundImgs();
     }
-
+    /**
+     * Load sound buttons on to screen
+     */
     private void loadSoundImgs() {
         BufferedImage temp = LoadImages.GetImage(LoadImages.SOUND_BUTTONS);
         soundImgs = new BufferedImage[2][3];

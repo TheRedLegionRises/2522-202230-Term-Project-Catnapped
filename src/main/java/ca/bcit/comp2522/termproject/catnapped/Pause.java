@@ -13,16 +13,17 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.VolumeButt
  * @author Jerry and Bryan
  * @version 2022
  */
-
 public class Pause {
-
     private InGame inGame;
     private VolumeButtons volumeButtons;
     private BufferedImage backgroundImage;
     private SoundButtons musicButton, sfxButton;
     private UtilButtons menuButton, replayButton, unpauseButton;
     private int backgroundX,backgroundY,backgroundWidth, backgroundHeight;
-
+    /**
+     * Pause constructor
+     @param inGame gets current game to pause.
+     */
     public Pause(InGame inGame) {
 
         this.inGame = inGame;
@@ -32,7 +33,9 @@ public class Pause {
         createVolumeButton();
 
     }
-
+    /**
+     * Loads pause menu background image
+     */
     private void loadBackground() {
         backgroundImage = LoadImages.GetImage(LoadImages.PAUSE_MENU);
         backgroundWidth = backgroundImage.getWidth();
@@ -41,12 +44,17 @@ public class Pause {
         backgroundY = 25;
 
     }
+    /**
+     * Create volume buttons in pause menu
+     */
     private void createVolumeButton() {
         int vX = 309; // Magic Number
         int vY = 278; // Magic Number
         volumeButtons = new VolumeButtons(vX, vY, SLIDER_WIDTH, VOLUME_BUTTON_HEIGHT);
     }
-
+    /**
+     * Create pause menu buttons
+     */
     private void createUtilButtons() {
         int menuX = 313; // Magic Number
         int replayX = 387 ; // Magic Number
@@ -58,7 +66,9 @@ public class Pause {
         unpauseButton = new UtilButtons(unpauseX, bY,UTIL_BUTTON_SIZE , UTIL_BUTTON_SIZE, 0);
 
     }
-
+    /**
+     * Create sound buttons in pause menu
+     */
     private void createSoundButtons() {
         int soundX = 450; // Magic Number
         int musicY = 140; // Magic Number
@@ -78,7 +88,6 @@ public class Pause {
         volumeButtons.update();
 
     }
-
 
     public void draw(Graphics g) {
         // Background
@@ -176,7 +185,5 @@ public class Pause {
             unpauseButton.setMouseOver(true);
         else if (clickable(e, volumeButtons))
             volumeButtons.setMouseOver(true);
-
     }
-
 }

@@ -181,6 +181,11 @@ public class HelperMethods {
 
     }
 
+    /**
+     * Gets level data to display level
+     * @param img the image of level
+     * @return RGB values in 2D array levelImages
+     */
     public static int[][] GetLevelData(BufferedImage img) {
 
         int[][] levelImages = new int[img.getHeight()][img.getWidth()];
@@ -197,6 +202,11 @@ public class HelperMethods {
         return levelImages;
     }
 
+    /**
+     * Gets level data of enemies to display enemies in specific levels
+     * @param img the image of level
+     * @return RGB values of enemies in an arraylist.
+     */
     public static ArrayList<Enemy> GetEnemies(BufferedImage img) {
         ArrayList<Enemy> enemyList = new ArrayList<>();
         for (int j = 0; j < img.getHeight(); j++) {
@@ -212,6 +222,11 @@ public class HelperMethods {
         return enemyList;
     }
 
+    /**
+     * Gets level data of spawn to display player
+     * @param img the image of level
+     * @return Point of spawn
+     */
         public static Point GetPlayerSpawn(BufferedImage img) {
             for (int j = 0; j < img.getHeight(); j++)
                 for (int i = 0; i < img.getWidth(); i++) {

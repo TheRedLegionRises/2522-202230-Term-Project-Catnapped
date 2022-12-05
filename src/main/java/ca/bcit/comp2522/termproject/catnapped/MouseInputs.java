@@ -10,14 +10,10 @@ import java.awt.event.MouseMotionListener;
  * @version 2022
  */
 public class MouseInputs implements MouseListener, MouseMotionListener {
-
-
     private GamePanel gamePanel;
-
     public MouseInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
-
     @Override
     public void mouseClicked(MouseEvent e) {
 //        System.out.println("Mouse Clicked");
@@ -29,7 +25,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 break;
         }
     }
-
     @Override
     public void mousePressed(MouseEvent e) {
 
@@ -45,7 +40,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 break;
         }
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
         switch (Gamestate.state) {
@@ -60,20 +54,16 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 break;
         }
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
     }
 
     @Override
@@ -91,5 +81,4 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
         }
     }
-
 }

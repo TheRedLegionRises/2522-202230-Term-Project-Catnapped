@@ -27,7 +27,9 @@ public class DisplayLevel {
         levels = new ArrayList<>();
         buildAllLevels();
     }
-
+    /**
+     * Loads next level for game
+     */
     public void loadNextLevel() {
         lvlIndex++;
         if (lvlIndex >= levels.size()) {
@@ -41,7 +43,9 @@ public class DisplayLevel {
         game.getInGame().getPlayer().loadLevelInfo(newLevel.getLevelImage());
         game.getInGame().setMaxLvlOffsetX(newLevel.getLvlOffset());
     }
-
+    /**
+     * Loads all levels for game
+     */
     private void buildAllLevels() {
         BufferedImage[] allLevels = LoadImages.GetAllLevels();
         for(BufferedImage img : allLevels)

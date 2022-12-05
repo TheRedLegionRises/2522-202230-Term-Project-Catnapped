@@ -11,12 +11,18 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.MenuUI.VolumeButt
  * @version 2022
  */
 public class VolumeButtons extends PauseButtons {
-
     private int index = 0;
     private BufferedImage slider;
     private BufferedImage[] imgs;
     private int buttonX, minX, maxX;
     private boolean mouseOver, mousePressed;
+    /**
+     * VolumeButtons constructor
+     @param x position for volume buttons
+     @param y position for volume buttons
+     @param width for volume buttons
+     @param height for volume buttons
+     */
     public VolumeButtons(int x, int y, int width, int height) {
         super(x + width / 2, y, VOLUME_BUTTON_WIDTH, height);
         boundaries.x -= VOLUME_BUTTON_WIDTH / 2;
@@ -27,7 +33,9 @@ public class VolumeButtons extends PauseButtons {
         maxX = x + width - VOLUME_BUTTON_WIDTH / 2;
         loadImgs();
     }
-
+    /**
+     * Load volume buttons for pause menu
+     */
     private void loadImgs() {
         BufferedImage temp = LoadImages.GetImage(LoadImages.VOLUME_BUTTONS);
         imgs = new BufferedImage[3];
