@@ -144,7 +144,7 @@ public class InGame extends State implements Statemethods{
                     paused = !paused;
                     break;
                 case KeyEvent.VK_F:
-                    System.out.println("F is pressed");
+//                    System.out.println("F is pressed");
                     if (!player.getFirstAttackReset()) {
                         player.setFirstAttackAnimationReset(true);
                     }

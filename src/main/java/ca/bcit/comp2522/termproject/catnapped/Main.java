@@ -8,5 +8,6 @@ package ca.bcit.comp2522.termproject.catnapped;
 public class Main {
     public static void main(String[] args) {
         new Game();
+        System.out.println("Please use A to move left\nand D for to move right\nuse F to attack and space for jump\nHAVE FUN!");
     }
 }

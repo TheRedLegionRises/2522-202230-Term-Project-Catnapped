@@ -5,6 +5,12 @@
 ## Links
 
 - [Repo](https://github.com/TheRedLegionRises/2522-202230-Term-Project-Catnapped " Catnapped Repo")
+## How to play
+
+Please use A to move left
+and D for to move right. 
+Use F to attack and space for jump,
+HAVE FUN!
 
 ## Built With
 
