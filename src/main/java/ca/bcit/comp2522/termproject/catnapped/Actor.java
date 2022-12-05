@@ -20,12 +20,6 @@ public abstract class Actor {
         this.width = newWidth;
     }
 
-//    public void updateHitbox() {
-//        //Empty white space to left because of the way sprite was created so we shift hitbox right
-//        playerHitbox.x = (int) x + 40;
-//        playerHitbox.y = (int) y;
-//    }
-
     protected void createHitbox(float xCoordinate, float yCoordinate, float width, float height) {
         actorHitbox = new Rectangle2D.Float( xCoordinate, yCoordinate, width, height);
 
@@ -41,11 +35,4 @@ public abstract class Actor {
         g.drawRect((int) actorHitbox.x - xoffset, (int) actorHitbox.y, (int) actorHitbox.width, (int) actorHitbox.height);
     }
 
-    public float getXCoordinate() {
-        return this.x;
-    }
-
-    public float getYCoordinate() {
-        return this.y;
-    }
 }

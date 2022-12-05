@@ -37,10 +37,6 @@ public class DisplayLevel {
                 g.drawImage(levelImages[index], i * 32 - xLvlOffset, j * 32, 32, 32, null);
             }
         }
-//        g.drawImage(levelImages[0], 10, 10, null);
-//        g.drawImage(levelImages[1], 42, 10, null);
-//        g.drawImage(levelImages[2], 74, 10, null);
-
     }
 
     public void update() {

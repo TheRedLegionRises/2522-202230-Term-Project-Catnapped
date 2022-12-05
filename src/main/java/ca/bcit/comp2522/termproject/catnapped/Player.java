@@ -12,7 +12,7 @@ import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
  * @author Jerry and Bryan
  * @version 2022
  */
-public class Player extends Actor{
+public class Player extends Actor {
 
     private BufferedImage[][] allAnimations = new BufferedImage[7][];
     private BufferedImage animationImage, healthBarImage, heartImage;
@@ -61,7 +61,7 @@ public class Player extends Actor{
         super(newXCoordinate, newYCoordinate, newHeight, newWidth);
         this.ingame = ingame;
         loadPlayerAnimations();
-        createHitbox(newXCoordinate, newYCoordinate, (int)32,(int) 32);
+        createHitbox(newXCoordinate, newYCoordinate, (int) 32, (int) 32);
         createAttackBox();
     }
 
@@ -70,9 +70,9 @@ public class Player extends Actor{
     }
 
     private void updateAttackBox() {
-        if(facingRight) {
+        if (facingRight) {
             attackBox.x = actorHitbox.x + actorHitbox.width;
-        } else if(facingLeft) {
+        } else if (facingLeft) {
             attackBox.x = actorHitbox.x - attackBox.width;
         }
         attackBox.y = actorHitbox.y + (actorHitbox.height - attackBox.height);
@@ -90,7 +90,7 @@ public class Player extends Actor{
 
             currentAnimation = new BufferedImage[GetPlayerAttribute(i)];
 
-            for(int j = 0; j < currentAnimation.length; j++) {
+            for (int j = 0; j < currentAnimation.length; j++) {
                 currentAnimation[j] = animationImage.getSubimage(0, j * 16, animationImage.getWidth(), 16); // Cat is 16 pixels tall and 32 pixels fat
             }
             allAnimations[i] = currentAnimation;
@@ -109,9 +109,8 @@ public class Player extends Actor{
     }
 
 
-
     public void updatePlayer() {
-        if(currentHealth <= 0) {
+        if (currentHealth <= 0) {
             ingame.setGameOver(true);
             return;
         }
@@ -119,7 +118,7 @@ public class Player extends Actor{
         updateAttackBox();
 
         updatePos();
-        if(attacking) {
+        if (attacking) {
             checkAttack();
         }
         updateAnimationThread();
@@ -127,9 +126,9 @@ public class Player extends Actor{
     }
 
     private void checkAttack() {
-        if(attackChecked || animationIndex != 4) {
+        if (attackChecked || animationIndex != 4) {
             return;
-        }else {
+        } else {
             attackChecked = true;
             ingame.checkPlayerHitEnemy();
         }
@@ -139,7 +138,7 @@ public class Player extends Actor{
     public void renderPlayer(Graphics g, int xLvlOffset) {
         g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x + flipImage - xDrawOffset * flipImage * flipDrawOffsetMultiplier) - xLvlOffset,
                 (int) (actorHitbox.y),
-                width * flipImage, height,null);
+                width * flipImage, height, null);
 //        g.drawImage(allAnimations[4][animationIndex], (int) (actorHitbox.x + flipImage - xDrawOffset * flipImage * flipDrawOffsetMultiplier),
 //                (int) (actorHitbox.y),
 //                width * flipImage, height,null);
@@ -159,7 +158,7 @@ public class Player extends Actor{
         g.drawRect((int) attackBox.x, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
     }
 
-    private void drawHealthBar(Graphics g){
+    private void drawHealthBar(Graphics g) {
         g.drawImage(healthBarImage, healthBarXCoordinate, healthBarYCoordinate, healthBarWidth, healthBarHeight, null);
     }
 
@@ -171,14 +170,14 @@ public class Player extends Actor{
 
     private void updateAnimationThread() {
         animationTick++;
-        if(animationTick >= animationSpeed) {
+        if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
             heartAnimationIndex++;
             if (heartAnimationIndex >= heartAnimation.length) {
                 heartAnimationIndex = 0;
             }
-            if(animationIndex >= GetPlayerAttribute(currentPlayerAction)) {
+            if (animationIndex >= GetPlayerAttribute(currentPlayerAction)) {
                 animationIndex = 0;
                 attackChecked = false;
                 attacking = false;
@@ -193,9 +192,8 @@ public class Player extends Actor{
     }
 
 
-
     private void playerJump() {
-        if(playerInAir) {
+        if (playerInAir) {
             return;
         }
         playerInAir = true;
@@ -208,12 +206,11 @@ public class Player extends Actor{
     }
 
 
-
     private void updatePos() {
         tempXSpeed = 0;
 
 
-        if(jump) {
+        if (jump) {
             playerJump();
         }
         if (!playerInAir) {
@@ -221,134 +218,136 @@ public class Player extends Actor{
                 return;
         }
         tempXSpeed = 0;
-        if(moveLeft == moveRight && !playerInAir) {
+        if (moveLeft == moveRight && !playerInAir) {
 
-        if(moveLeft == moveRight && !playerInAir || attacking) {
-            if (firstAttackAnimationReset) {
-                animationIndex = 0;
-                animationTick = 0;
-                firstAttackAnimationReset = false;
+            if (moveLeft == moveRight && !playerInAir || attacking) {
+                if (firstAttackAnimationReset) {
+                    animationIndex = 0;
+                    animationTick = 0;
+                    firstAttackAnimationReset = false;
+                }
+                currentPlayerAction = IDLE;
+                return;
             }
-            currentPlayerAction = IDLE;
-            return;
         }
 //        else if (attacking) {
 //            currentPlayerAction = ATTACK;
 //        }
 
-        else  {
-            currentPlayerAction = RUNNING;
-            if (moveRight) {
-                tempXSpeed = 1;
-                flipImage = 1;
-                flipDrawOffsetMultiplier = 1;
-                facingLeft = false;
-                facingRight = true;
+            else {
+                currentPlayerAction = RUNNING;
+                if (moveRight) {
+                    tempXSpeed = 1;
+                    flipImage = 1;
+                    flipDrawOffsetMultiplier = 1;
+                    facingLeft = false;
+                    facingRight = true;
 
-            } else if(moveLeft) {
-                tempXSpeed = -1;
-                flipImage = -1;
-                flipDrawOffsetMultiplier = 3;
-                facingRight = false;
-                facingLeft = true;
+                } else if (moveLeft) {
+                    tempXSpeed = -1;
+                    flipImage = -1;
+                    flipDrawOffsetMultiplier = 3;
+                    facingRight = false;
+                    facingLeft = true;
+                }
+            }
+
+            if (!playerInAir) {
+                if (!IsActorOnFloor(actorHitbox, levelInfo)) {
+                    playerInAir = true;
+                }
+            }
+
+            if (playerInAir) {
+//            currentPlayerAction = JUMPING;
+                if (collisionDetection(actorHitbox.x, actorHitbox.y + airSpeed, actorHitbox.width,
+                        actorHitbox.height, levelInfo)) {
+                    actorHitbox.y += airSpeed;
+                    airSpeed += gravitySpeed;
+                    updateXPosition(tempXSpeed);
+                } else {
+                    actorHitbox.y = CheckActorCollisionWithCeilingOrFloor(actorHitbox, airSpeed) + 31;
+                    if (airSpeed > 0) {
+                        resetIfFloating();
+                    } else {
+                        //Fall faster after hitting something (e.g. roof)
+                        airSpeed = 0.5f;
+                    }
+                    updateXPosition(tempXSpeed);
+                }
+            } else {
+                updateXPosition(tempXSpeed);
             }
         }
 
-        if (!playerInAir) {
-            if(!IsActorOnFloor(actorHitbox, levelInfo)) {
+
+
+        private void updateXPosition ( float tempXSpeed){
+            if (collisionDetection(actorHitbox.x + tempXSpeed, actorHitbox.y,
+                    actorHitbox.width, actorHitbox.height, levelInfo)) {
+                actorHitbox.x += tempXSpeed;
+
+            } else {
+                actorHitbox.x = GetActorNextToWall(actorHitbox, tempXSpeed);
+            }
+        }
+
+        public void playerGotHit ( int amount){
+            currentHealth += amount;
+
+            if (currentHealth <= 0) {
+                currentHealth = 0;
+//            gameOver();
+            }
+            if (currentHealth >= maxHealth) {
+                currentHealth = maxHealth;
+            }
+        }
+
+        public void setMoveLeft ( boolean moveLeft){
+            this.moveLeft = moveLeft;
+        }
+
+        public void setMoveRight ( boolean moveRight){
+            this.moveRight = moveRight;
+        }
+
+        public void setJump ( boolean isPlayerJumping){
+            this.jump = isPlayerJumping;
+        }
+
+        public void setAttacking ( boolean isAttacking){
+            this.attacking = isAttacking;
+        }
+
+        public boolean getFirstAttackReset () {
+            return this.firstAttackAnimationReset;
+        }
+
+        public void setFirstAttackAnimationReset ( boolean newValue){
+            this.firstAttackAnimationReset = newValue;
+        }
+
+        public Rectangle2D.Float getAttackBox () {
+            return this.attackBox;
+        }
+
+        public void resetAll () {
+            moveRight = false;
+            moveLeft = false;
+            jump = false;
+            playerInAir = false;
+            attacking = false;
+            currentPlayerAction = IDLE;
+            currentHealth = maxHealth;
+
+            actorHitbox.x = this.x;
+            actorHitbox.y = this.y;
+
+            if (!IsActorOnFloor(actorHitbox, levelInfo)) {
                 playerInAir = true;
             }
         }
-
-        if(playerInAir) {
-//            currentPlayerAction = JUMPING;
-            if(collisionDetection(actorHitbox.x, actorHitbox.y + airSpeed, actorHitbox.width,
-                    actorHitbox.height, levelInfo)) {
-                actorHitbox.y += airSpeed;
-                airSpeed += gravitySpeed;
-                updateXPosition(tempXSpeed);
-            } else{
-                actorHitbox.y = CheckActorCollisionWithCeilingOrFloor(actorHitbox, airSpeed) + 31;
-                if (airSpeed > 0) {
-                    resetIfFloating();
-                } else{
-                    //Fall faster after hitting something (e.g. roof)
-                    airSpeed = 0.5f;
-                }
-                updateXPosition(tempXSpeed);
-            }
-        }else {
-            updateXPosition(tempXSpeed);
-        }
     }
 
 
-    private void updateXPosition(float tempXSpeed) {
-        if(collisionDetection(actorHitbox.x + tempXSpeed, actorHitbox.y,
-                actorHitbox.width, actorHitbox.height, levelInfo)) {
-            actorHitbox.x += tempXSpeed;
-
-        }else {
-            actorHitbox.x = GetActorNextToWall(actorHitbox, tempXSpeed);
-        }
-    }
-
-    public void playerGotHit(int amount) {
-        currentHealth += amount;
-
-        if(currentHealth <= 0) {
-            currentHealth = 0;
-//            gameOver();
-        }
-        if(currentHealth >= maxHealth) {
-            currentHealth = maxHealth;
-        }
-    }
-
-    public void setMoveLeft(boolean moveLeft) {
-        this.moveLeft = moveLeft;
-    }
-
-    public void setMoveRight(boolean moveRight) {
-        this.moveRight = moveRight;
-    }
-
-    public void setJump(boolean isPlayerJumping) {
-        this.jump = isPlayerJumping;
-    }
-
-    public void setAttacking(boolean isAttacking) {
-        this.attacking = isAttacking;
-    }
-
-    public boolean getFirstAttackReset() {
-        return this.firstAttackAnimationReset;
-    }
-
-    public void setFirstAttackAnimationReset(boolean newValue) {
-        this.firstAttackAnimationReset = newValue;
-    }
-
-    public Rectangle2D.Float getAttackBox() {
-        return this.attackBox;
-    }
-
-    public void resetAll() {
-        moveRight = false;
-        moveLeft = false;
-        jump = false;
-        playerInAir = false;
-        attacking = false;
-        currentPlayerAction = IDLE;
-        currentHealth = maxHealth;
-
-        actorHitbox.x = this.x;
-        actorHitbox.y = this.y;
-
-        if(!IsActorOnFloor(actorHitbox, levelInfo)) {
-            playerInAir = true;
-        }
-
-
-    }
-}

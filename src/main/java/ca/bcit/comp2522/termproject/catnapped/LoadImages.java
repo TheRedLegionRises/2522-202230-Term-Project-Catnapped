@@ -11,8 +11,6 @@ import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
 public class LoadImages {
     public static final String TERRAIN_IMG = "/images/Terrain.png";
-
-    public static final String TEST_LEVEL = "/images/level_one_data.png";
     public static final String TEST_LEVEL_LONGER = "/images/level_one_data_long.png";
     public static final String MENU_BUTTONS = "/images/menu_buttons.png";
     public static final String MENU_BG = "/images/menu_background.png";
@@ -20,6 +18,7 @@ public class LoadImages {
     public static final String SOUND_BUTTONS = "/images/sound_button.png";
     public static final String UTIL_BUTTONS = "/images/util_buttons.png";
     public static final String VOLUME_BUTTONS = "/images/volume_buttons.png";
+    public static final String MENU_BACKGROUND = "/images/background_image.jpg";
     public static final String LIFE_BAR = "/images/Live_Bar.png";
     public static final String HEART = "/images/Big_Heart_Idle.png";
 

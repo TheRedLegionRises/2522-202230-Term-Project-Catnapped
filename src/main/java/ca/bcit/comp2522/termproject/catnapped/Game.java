@@ -34,10 +34,10 @@ public class Game implements Runnable {
     private void gameInfo() {
         menu = new Menu(this);
         inGame = new InGame(this);
-        level1 = new DisplayLevel(this);
+//        level1 = new DisplayLevel(this);
 //        enemyManager = new AllEnemiesManager();
-        player = new Player(100, 100, 32, 128, inGame);
-        player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
+////        player = new Player(100, 100, 32, 128, inGame);
+//        player.loadLevelInfo(level1.getCurrentLevel().getLevelImage());
 
     }
 
@@ -46,18 +46,6 @@ public class Game implements Runnable {
         gameThread.start();
     }
 
-//    //New Method for Revised Loop
-//    public void update() {
-//        player.updatePlayer();
-//        enemyManager.updateEnemies(level1.getCurrentLevel().getLevelImage());
-//        level1.update();
-//    }
-//
-//    public void render(Graphics g) {
-//        level1.drawLevel(g);
-//        player.renderPlayer(g);
-//        enemyManager.renderEnemies(g);
-//    }
 
     //New Method for Revised Loop
     public void update() {
@@ -69,14 +57,10 @@ public class Game implements Runnable {
                 inGame.update();
                 break;
             case OPTIONS:
-                break;
             case QUIT:
+            default:
                 System.exit(0);
                 break;
-            default:
-                break;
-
-
         }
     }
 
