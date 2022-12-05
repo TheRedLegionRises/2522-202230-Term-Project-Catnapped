@@ -73,6 +73,12 @@ public class Player extends Actor {
         createHitbox(newXCoordinate, newYCoordinate, HITBOX_WIDTH,HITBOX_HEIGHT);
         createAttackBox();
     }
+    public void setSpawn(Point spawn) {
+        this.x = spawn.x;
+        this.y = spawn.y;
+        actorHitbox.x = x;
+        actorHitbox.y = y;
+    }
 
     /**
      * Creates the player's attack box

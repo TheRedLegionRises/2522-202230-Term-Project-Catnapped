@@ -5,20 +5,20 @@ package ca.bcit.comp2522.termproject.catnapped;
  * @author Jerry and Bryan
  * @version 2022
  */
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.GetLevelData;
-import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.GetEnemies;
+import static ca.bcit.comp2522.termproject.catnapped.HelperMethods.*;
 
 public class LevelInfo {
     private BufferedImage img;
     private ArrayList<Enemy> enemys;
-
     private int lvlTilesWide;
     private int maxTilesOffset;
     private int maxLvlOffsetX;
     private int[][] levelImage;
+    private Point PlayerSpawn;
 
     /**
      * Constructor for our LevelInfo class
@@ -33,7 +33,13 @@ public class LevelInfo {
         createLevelData();
         createEnemies();
         calcLvlOffsets();
+        calcPlayerSpawn();
     }
+
+    private void calcPlayerSpawn() {
+        PlayerSpawn = GetPlayerSpawn(img);
+    }
+
     private void calcLvlOffsets() {
         lvlTilesWide = img.getWidth();
         maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
@@ -68,6 +74,10 @@ public class LevelInfo {
     }
     public ArrayList<Enemy> getEnemys() {
         return enemys;
+    }
+
+    public Point getPlayerSpawn() {
+        return PlayerSpawn;
     }
 
 }

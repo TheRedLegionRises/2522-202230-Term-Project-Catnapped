@@ -38,6 +38,7 @@ public class InGame extends State implements Statemethods{
     public void LoadNextLevel() {
         resetAll();
         displayLevel.loadNextLevel();
+        player.setSpawn(displayLevel.getCurrentLevel().getPlayerSpawn());
     }
     private void LoadStartLevel() {
         enemyManager.LoadEnemies(displayLevel.getCurrentLevel());
@@ -53,6 +54,7 @@ public class InGame extends State implements Statemethods{
 
         player = new Player(100, 100, 32, 64, this);
         player.loadLevelInfo(displayLevel.getCurrentLevel().getLevelImage());
+        player.setSpawn(displayLevel.getCurrentLevel().getPlayerSpawn());
 
         pause = new Pause(this);
         gameOverScreen = new GameOverScreen(this);
@@ -222,16 +224,13 @@ public class InGame extends State implements Statemethods{
     public void unpauseGame() {
         paused = false;
     }
-
     public AllEnemiesManager getEnemyManager() {
         return enemyManager;
     }
     public void setMaxLvlOffsetX(int lvlOffset) {
         this.maxLvlOffsetX = lvlOffset;
     }
-
     public void setLevelComplete(boolean lvlcompleted) {
         this.lvlcompleted = lvlcompleted;
     }
-
 }
