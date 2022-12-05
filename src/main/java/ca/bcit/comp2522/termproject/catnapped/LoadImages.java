@@ -12,6 +12,11 @@ import java.util.ArrayList;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
+/**
+ * LoadImages helper class. Loads all images into an array.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class LoadImages {
     public static final String TERRAIN_IMG = "/images/Terrain.png";
     public static final String TEST_LEVEL_LONGER = "/levels/1.png";
@@ -24,11 +29,15 @@ public class LoadImages {
     public static final String MENU_BACKGROUND = "/images/background_image.jpg";
     public static final String LIFE_BAR = "/images/Live_Bar.png";
     public static final String HEART = "/images/Big_Heart_Idle.png";
-
     public static final String COMPLETE_OVERLAY = "/images/completed_menu.png";
     public static final String LEVEL_2 = "/levels/2.png";
 
 
+    /**
+     * Returns an image based on a filePath.
+     * @param filePath a String URL
+     * @return a BufferedImage object
+     */
     public static BufferedImage GetImage(String filePath) {
         BufferedImage img = null;
         InputStream is = LoadImages.class.getResourceAsStream(filePath);
@@ -49,6 +58,10 @@ public class LoadImages {
         return img;
     }
 
+    /**
+     * Get a list of all enemies based on the level schema.
+     * @return
+     */
     public static BufferedImage[] GetAllLevels() {
         URL url = LoadImages.class.getResource("/levels");
         File file = null;
@@ -78,6 +91,12 @@ public class LoadImages {
         return imgs;
     }
 
+    /**
+     * Puts data from a level schema into a 2D array for future rendering.
+     * @return a 2D integer array
+     */
+
+
     public static ArrayList<Enemy> GetEnemies() {
         BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
         ArrayList<Enemy> enemyList = new ArrayList<>();
@@ -96,12 +115,17 @@ public class LoadImages {
 
     }
 
+    /**
+     * Puts data from a level schema into a 2D array for future rendering.
+     * @return a 2D integer array
+     */
+
     public static int[][] GetLevelImages(BufferedImage img) {
-        
+
         int[][] levelImages = new int[img.getHeight()][img.getWidth()];
 
         for (int j = 0; j < img.getHeight(); j++) {
-//            System.out.print("J: " + j);
+
             for (int i = 0; i < img.getWidth(); i++) {
                 Color color = new Color(img.getRGB(i, j));
                 int value = color.getRed();

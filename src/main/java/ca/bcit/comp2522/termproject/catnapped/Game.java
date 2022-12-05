@@ -2,6 +2,11 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 import java.awt.*;
 
+/**
+ * Game class. Implements Runnable class.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class Game implements Runnable {
 
     private GameWindow gameWindow;
@@ -19,6 +24,11 @@ public class Game implements Runnable {
     public final static int GAME_WINDOW_WIDTH = TILES_IN_WIDTH * DEFAULT_TILE_SIZE;
     public final static int GAME_WINDOW_HEIGHT = TILES_IN_HEIGHT * DEFAULT_TILE_SIZE;
 
+    /**
+     * Constructor for our Game class.
+     * @author jerry and bryan
+     * @version 2022
+     */
     public Game() {
         gameInfo();
         gamePanel = new GamePanel(this);
@@ -28,18 +38,25 @@ public class Game implements Runnable {
         startGameLoop();
     }
 
+    /**
+     * Initializes all necessary elements of our game.
+     */
     private void gameInfo() {
         menu = new Menu(this);
         inGame = new InGame(this);
     }
 
+    /**
+     * Starts the game loop
+     */
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
-
-    //New Method for Revised Loop
+    /**
+     * Updates the current game state and changes what is displayed accordingly.
+     */
     public void update() {
         switch(Gamestate.state) {
             case MENU:
@@ -56,6 +73,10 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Renders the current game state onto the screen
+     * @param g Graphics object
+     */
     public void render(Graphics g) {
 
         switch(Gamestate.state) {
@@ -70,7 +91,9 @@ public class Game implements Runnable {
         }
     }
 
-
+    /**
+     * Method for running the game.
+     */
     @Override
     public void run() {
 
@@ -115,11 +138,18 @@ public class Game implements Runnable {
         }
     }
 
-
+    /**
+     * Returns the Menu object initialized inside this current class.
+     * @return a Menu object
+     */
     public Menu getMenu() {
         return menu;
     }
 
+    /**
+     * Returns the InGame object initialized inside this current class.
+     * @return
+     */
     public InGame getInGame(){
         return inGame;
     }
