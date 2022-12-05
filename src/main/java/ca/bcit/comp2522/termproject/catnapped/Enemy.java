@@ -22,7 +22,7 @@ public class Enemy extends Actor{
     private static final float walkSpeed = 0.5f;
     private int walkDir = LEFT;
     private static final int MAX_HEALTH = 1;
-    private static final int DAMAGE_TO_PLAYERS = 1;
+    private static final int DAMAGE_TO_PLAYERS = -1;
     private boolean alive = true;
     private int currentHealth = MAX_HEALTH;
     private final float attackRange = Game.DEFAULT_TILE_SIZE;

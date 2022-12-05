@@ -37,14 +37,12 @@ public class Player extends Actor{
     //Attack Varibles
     private Rectangle2D.Float attackBox;
     private int flipImage = 1;
-    private int flipDrawOffset = 1;
     private int flipDrawOffsetMultiplier = 1;
 
     private static final float xDrawOffset = 20;
-    private float yDrawOffset = 0;
-    private boolean movementChanged, moveLeft, moveRight, jump = false;
+    private boolean moveLeft, moveRight, jump = false;
     private boolean facingLeft = false, facingRight = true;
-    float tempXSpeed = 0, tempYSpeed = 0;
+    float tempXSpeed = 0;
     private float airSpeed = 0f;
     private float gravitySpeed = 0.04f;
     private float jumpSpeed = -2.25f;
@@ -172,16 +170,13 @@ public class Player extends Actor{
         g.drawImage(allAnimations[currentPlayerAction][animationIndex], (int) (actorHitbox.x + flipImage - xDrawOffset * flipImage * flipDrawOffsetMultiplier),
                 (int) (actorHitbox.y),
                 width * flipImage, height,null);
-//        g.drawImage(allAnimations[4][animationIndex], (int) (actorHitbox.x + flipImage - xDrawOffset * flipImage * flipDrawOffsetMultiplier),
-//                (int) (actorHitbox.y),
-//                width * flipImage, height,null);
+
         if (attacking) {
-            g.setColor(Color.cyan);
+            g.setColor(Color.white);
             g.drawRect((int) attackBox.x, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height / 4);
             g.fillRect((int) attackBox.x, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height / 4);
         }
-//        drawActorHitbox(g);
-//        drawAttackBox(g);
+
         drawHealthBar(g);
         drawHearts(g);
     }
