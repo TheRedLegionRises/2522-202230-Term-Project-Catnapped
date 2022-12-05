@@ -9,11 +9,30 @@ import java.util.ArrayList;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
+/**
+ * LoadImages helper class. Loads all images into an array.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class LoadImages {
-    private static final String terrainImagesURL = "/images/Terrain.png";
-    private static final String testLevel = "/images/level_one_data.png";
-    private static final String testLevel1 = "/images/test_level.png";
+    public static final String TERRAIN_IMG = "/images/Terrain.png";
 
+    public static final String TEST_LEVEL = "/images/level_one_data.png";
+    public static final String TEST_LEVEL_LONGER = "/images/test_level.png";
+    public static final String MENU_BUTTONS = "/images/menu_buttons.png";
+    public static final String MENU_BG = "/images/menu_background.png";
+    public static final String PAUSE_MENU = "/images/pause_menu.png";
+    public static final String SOUND_BUTTONS = "/images/sound_button.png";
+    public static final String UTIL_BUTTONS = "/images/util_buttons.png";
+    public static final String VOLUME_BUTTONS = "/images/volume_buttons.png";
+    public static final String LIFE_BAR = "/images/Live_Bar.png";
+    public static final String HEART = "/images/Big_Heart_Idle.png";
+
+    /**
+     * Returns an image based on a filePath.
+     * @param filePath a String URL
+     * @return a BufferedImage object
+     */
     public static BufferedImage GetImage(String filePath) {
         BufferedImage img = null;
         InputStream is = LoadImages.class.getResourceAsStream(filePath);
@@ -34,8 +53,12 @@ public class LoadImages {
         return img;
     }
 
+    /**
+     * Get a list of all enemies based on the level schema.
+     * @return
+     */
     public static ArrayList<Enemy> GetEnemies() {
-        BufferedImage levelImg = GetImage(testLevel1);
+        BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
         ArrayList<Enemy> enemyList = new ArrayList<>();
 
         for (int j = 0; j < levelImg.getHeight(); j++) {
@@ -44,8 +67,7 @@ public class LoadImages {
                 int value = color.getGreen();
 
                 if (value == ENEMY_IDENTIFIER) {
-                    enemyList.add(new Enemy(i * Game.DEFAULT_TILE_SIZE,
-                            j * Game.DEFAULT_TILE_SIZE, 1, ENEMY_HEIGHT, ENEMY_WIDTH));
+                    enemyList.add(new Enemy(i * Game.DEFAULT_TILE_SIZE, j * Game.DEFAULT_TILE_SIZE, ENEMY_HEIGHT, ENEMY_WIDTH));
                 }
             }
         }
@@ -53,9 +75,14 @@ public class LoadImages {
 
     }
 
+    /**
+     * Puts data from a level schema into a 2D array for future rendering.
+     * @return a 2D integer array
+     */
     public static int[][] GetLevelImages() {
-        int[][] levelImages = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
-        BufferedImage levelImg = GetImage(testLevel1);
+
+        BufferedImage levelImg = GetImage(TEST_LEVEL_LONGER);
+        int[][] levelImages = new int[levelImg.getHeight()][levelImg.getWidth()];
 
         for (int j = 0; j < levelImg.getHeight(); j++) {
 //            System.out.print("J: " + j);
@@ -71,6 +98,5 @@ public class LoadImages {
         }
         return levelImages;
     }
-
-
+    
 }
