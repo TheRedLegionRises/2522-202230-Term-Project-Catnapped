@@ -2,10 +2,19 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 import javax.swing.*;
 
+/**
+ * GameWindow class. Displays the inside of the game inside the frame.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class GameWindow {
 
     private final JFrame jframe;
 
+    /**
+     * Constructor for our GameWindow class.
+     * @param newGamePanel
+     */
     public GameWindow(GamePanel newGamePanel) {
 
         jframe = new JFrame();

@@ -2,15 +2,23 @@ package ca.bcit.comp2522.termproject.catnapped;
 
 import java.awt.geom.Rectangle2D;
 
-import java.awt.*;
-
+/**
+ * HelperMethods class. Contains helper methods used in our program.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class HelperMethods {
+    /**
+     * Determines if there is a collision against a solid tile
+     * @param xCoordinate a float
+     * @param yCoordinate a float
+     * @param width a float
+     * @param height a float
+     * @param levelInfo a 2D integer array
+     * @return a boolean
+     */
     public static boolean collisionDetection(float xCoordinate, float yCoordinate, float width, float height,
                                              int[][] levelInfo) {
-//
-//        width /= 3;
-//        xCoordinate += 40;
-//        yCoordinate -= 32;
 
         if (!isSolidTile(xCoordinate, yCoordinate, levelInfo)) {
             if (!isSolidTile(xCoordinate + width, yCoordinate + height, levelInfo)) {
@@ -23,6 +31,13 @@ public class HelperMethods {
         return false;
     }
 
+    /**
+     * Determines if the tile at the current position is solid or not.
+     * @param x a float
+     * @param y a float
+     * @param levelInfo a 2D integer array
+     * @return a boolean
+     */
     private static boolean isSolidTile(float x, float y, int[][] levelInfo) {
         if (x < 0 || x >= Game.GAME_WINDOW_WIDTH) {
             return true;
@@ -43,19 +58,30 @@ public class HelperMethods {
 
     }
 
-    public static float GetActorNextToWall(Rectangle2D.Float playerHitbox, float xSpeed) {
-        int currentTile = (int) (playerHitbox.x / Game.DEFAULT_TILE_SIZE);
+    /**
+     * If actor collides with a wall, place character next to it.
+     * @param hitbox a Rectangle2D.Float object
+     * @param xSpeed a float
+     * @return a float
+     */
+    public static float GetActorNextToWall(Rectangle2D.Float hitbox, float xSpeed) {
+        int currentTile = (int) (hitbox.x / Game.DEFAULT_TILE_SIZE);
         if (xSpeed > 0) {
             //Right
             int tileXPosition = currentTile * Game.DEFAULT_TILE_SIZE;
-            int xOffset = (int) (Game.DEFAULT_TILE_SIZE - playerHitbox.width / 3);
-            return tileXPosition + 31;
+            return tileXPosition + (Game.DEFAULT_TILE_SIZE - 1);
         } else {
             //Left
             return currentTile * Game.DEFAULT_TILE_SIZE;
         }
     }
 
+    /**
+     * Check if actor collides with ceiling or floor
+     * @param playerHitbox a Rectangle2D.float object
+     * @param airSpeed a float
+     * @return a float
+     */
     public static float CheckActorCollisionWithCeilingOrFloor(Rectangle2D.Float playerHitbox, float airSpeed) {
         int currentTile = (int) (playerHitbox.y / Game.DEFAULT_TILE_SIZE);
         if (airSpeed > 0) {
@@ -69,6 +95,12 @@ public class HelperMethods {
         }
     }
 
+    /**
+     * Checks of actor is on the floor.
+     * @param hitbox a Rectangle2D.Float object
+     * @param levelInfo a 2D integer array
+     * @return a boolean
+     */
     public static boolean IsActorOnFloor(Rectangle2D.Float hitbox, int[][] levelInfo) {
         //Check bottom left and bottom right corners
         if (!isSolidTile(hitbox.x, hitbox.y + hitbox.height + 1, levelInfo)) {
@@ -79,11 +111,26 @@ public class HelperMethods {
         return true;
     }
 
+    /**
+     * Checks if the tile they are on is a floor.
+     * @param hitbox a Rectangle2D.Float object
+     * @param xSpeed a float
+     * @param levelInfo a 2D integer array
+     * @return a boolean
+     */
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelInfo) {
 //        System.out.println("Hitbox Height: " + hitbox.height);
         return isSolidTile(hitbox.x + hitbox.width / 2 + xSpeed, hitbox.y + hitbox.height + 1, levelInfo);
     }
 
+    /**
+     * Determines if there are no solid tiles in between two positions
+     * @param levelInfo a 2D integer array
+     * @param startIndex an integer
+     * @param endIndex an integer
+     * @param yPosition an integer
+     * @return a boolean
+     */
     private static boolean noTilesInBetween(int[][] levelInfo, int startIndex, int endIndex, int yPosition) {
         for (int i = startIndex; i < endIndex; i++) {
             if (isSolidTile(i, yPosition, levelInfo)) {
@@ -93,6 +140,14 @@ public class HelperMethods {
         return true;
     }
 
+    /**
+     * Determines if there is a clear line of sight between two actors.
+     * @param levelInfo a 2D integer array
+     * @param objectHitbox a Rectangle2D.Float object
+     * @param playerHitbox a Rectangle2D.Float object
+     * @param objectYPosition an integer
+     * @return a boolean
+     */
     public static boolean ClearLineOfSight(int[][] levelInfo, Rectangle2D.Float objectHitbox,
                                            Rectangle2D.Float playerHitbox, int objectYPosition) {
 

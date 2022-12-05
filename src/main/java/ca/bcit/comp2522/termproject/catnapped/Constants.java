@@ -1,5 +1,10 @@
 package ca.bcit.comp2522.termproject.catnapped;
 
+/**
+ * A Constants class. Contains all constants used in our game.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class Constants {
 
 

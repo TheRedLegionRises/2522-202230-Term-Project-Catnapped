@@ -7,31 +7,52 @@ import java.util.ArrayList;
 
 import static ca.bcit.comp2522.termproject.catnapped.Constants.EnemyConstants.*;
 
+/**
+ * AllEnemiesManager Class. Used to manage all enemies in the level.
+ * @author jerry and bryan
+ * @version 2022
+ */
 public class AllEnemiesManager {
 //    private Playing playing;
-    private Game game;
-    private InGame inGame;
+//    private Game game;
+    private final InGame inGame;
     private static final int NUMBER_OF_ANIMATIONS = 5;
     private BufferedImage[][] allEnemyAnimations;
     private ArrayList<Enemy> listOfEnemies = new ArrayList<>();
 
+    /**
+     * Constructor for the AllEnemiesManager class.
+     * @param inGame an Ingame object
+     */
     public AllEnemiesManager(InGame inGame) {
         this.inGame = inGame;
         loadEnemyImages();
         addEnemies();
     }
 
+    /**
+     * A method that reads a file and loads the respective amount of enemies into the level.
+     */
     private void addEnemies() {
         listOfEnemies = LoadImages.GetEnemies();
-        System.out.println("Size of crabs: " + listOfEnemies.size());
+//        System.out.println("Size of pigs: " + listOfEnemies.size());
     }
 
+    /**
+     * Calls the update method in the enemy class to update the current state of the enemy.
+     * @param levelInfo a 2D integer array
+     * @param player a Player object
+     */
     public void updateEnemies(int[][] levelInfo, Player player) {
         for (Enemy eachEnemy : listOfEnemies) {
             eachEnemy.updateEnemy(levelInfo, player);
         }
     }
 
+    /**
+     * Displays all enemies on the screen while they are alive.
+     * @param g a Graphics object
+     */
     public void renderEnemies(Graphics g) {
         for (Enemy enemy : listOfEnemies) {
             if (enemy.isAlive()) {
@@ -39,12 +60,16 @@ public class AllEnemiesManager {
                 g.drawImage(allEnemyAnimations[enemy.getEnemyAction()][enemy.getAnimationIndex()],
                         (int) enemy.getHitbox().x - HITBOX_OFFSET_X + enemy.flipXDrawOffset(), (int) enemy.getHitbox().y - HITBOX_OFFSET_Y,
                         ENEMY_WIDTH * enemy.flipWidth(), ENEMY_HEIGHT, null);
-                enemy.drawActorHitbox(g);
-                enemy.drawAttackBox(g);
+//                enemy.drawActorHitbox(g);
+//                enemy.drawAttackBox(g);
             }
         }
     }
 
+    /**
+     * Checks if player hits an enemy. Does so by using the intersect method inside Rectangle2D.Float Object class
+     * @param playerAttackBox a Rectangle2D.Float object
+     */
     public void checkPlayerHitsEnemy(Rectangle2D.Float playerAttackBox) {
         for(Enemy eachEnemy : listOfEnemies) {
             if(eachEnemy.isAlive()) {
@@ -56,6 +81,9 @@ public class AllEnemiesManager {
         }
     }
 
+    /**
+     * Loads all enemy animations from images into arrays.
+     */
     private void loadEnemyImages() {
         allEnemyAnimations = new BufferedImage[NUMBER_OF_ANIMATIONS][];
 
@@ -77,6 +105,9 @@ public class AllEnemiesManager {
         }
     }
 
+    /**
+     * If player dies and game is reset, reset all enemies to their original positions and health.
+     */
     public void resetAllEnemies() {
         for(Enemy eachEnemy : listOfEnemies) {
             eachEnemy.reset();
